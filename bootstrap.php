@@ -9,6 +9,16 @@ if (defined('APPLICATION_BOOTSTRAP_INCLUDED')) {
 }
 define('APPLICATION_BOOTSTRAP_INCLUDED', true);
 
+// Application bootstrapping
+//
+// This performs some common setup tasks that should affect all requests as
+// well as CLI interactions:
+// - Server/environment checks
+// - Composer/autoloading
+// - Error handling
+// - App config/service container
+
+
 /**
  * Future scope:
 
