@@ -19,8 +19,7 @@ use OpenEMR\Core\Header;
 
 // Will start the (patient) portal OpenEMR session/cookie.
 // Need access to classes, so run autoloader now instead of in globals.php.
-$GLOBALS['already_autoloaded'] = true;
-require_once(__DIR__ . "/../../vendor/autoload.php");
+require_once(__DIR__ . "/../../bootstrap.php");
 SessionUtil::portalSessionStart();
 session_regenerate_id(true);
 

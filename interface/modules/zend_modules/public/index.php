@@ -32,8 +32,7 @@ if (!empty($_REQUEST['recipient']) && ($_REQUEST['recipient'] === 'patient') && 
     if (!empty($_REQUEST['me'])) {
         // Will continue a session/cookie.
         //  Need access to classes, so run autoloader now instead of in globals.php.
-        $GLOBALS['already_autoloaded'] = true;
-        require_once(__DIR__ . "/../../../../vendor/autoload.php");
+        require_once(__DIR__ . "/../../../../bootstrap.php");
         session_id($_REQUEST['me']);
         SessionUtil::sessionStartWrapper();
     }
@@ -46,8 +45,7 @@ if (!empty($_REQUEST['recipient']) && ($_REQUEST['recipient'] === 'patient') && 
 if (!empty($_REQUEST['me']) && isset($_REQUEST['sent_by_app']) && $_REQUEST['sent_by_app'] === 'core_api') {
     // pick up already running session from api's
     //  Need access to classes, so run autoloader now instead of in globals.php.
-    $GLOBALS['already_autoloaded'] = true;
-    require_once(__DIR__ . "/../../../../vendor/autoload.php");
+    require_once(__DIR__ . "/../../../../bootstrap.php");
     session_id($_REQUEST['me']);
     SessionUtil::sessionStartWrapper();
 }
