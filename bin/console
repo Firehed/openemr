@@ -17,7 +17,7 @@ if (php_sapi_name() !== 'cli') {
 }
 
 $fileRoot = dirname(__DIR__);
-require_once "{$fileRoot}/vendor/autoload.php";
+require_once "{$fileRoot}/bootstrap.php";
 
 $skipGlobals = in_array('--skip-globals', $argv, true);
 // Don't pass --skip-globals to Symfony, and reindex array
