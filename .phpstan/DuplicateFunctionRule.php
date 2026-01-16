@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * @implements Rule<Function_>
@@ -35,12 +36,15 @@ final class DuplicateFunctionRule implements Rule
         $key = strtolower($namespace . '\\' . $functionName);
 
         if (isset(self::$seenFunctions[$key])) {
+            $message = sprintf(
+                'Duplicate function definition "%s()" (previously defined in %s)',
+                $functionName,
+                self::$seenFunctions[$key]
+            );
             return [
-                sprintf(
-                    'Duplicate function definition "%s()" (previously defined in %s)',
-                    $functionName,
-                    self::$seenFunctions[$key]
-                ),
+                RuleErrorBuilder::message($message)
+                    ->identifier('function.duplicateDefinition')
+                    ->build()
             ];
         }
 
