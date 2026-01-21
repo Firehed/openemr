@@ -197,5 +197,9 @@ foreach ($dupes as $fnName => $locations) {
     }
 }
 
-printf("Total %d duplicate functions", count($dupes));
+printf(
+    "Total %d duplicate function names across %d definitions",
+    count($dupes),
+    array_reduce($dupes, fn ($soFar, $dupe) => $soFar + count($dupe), 0),
+);
 exit(1);
