@@ -87,6 +87,10 @@ $dirIter = new RecursiveDirectoryIterator(
 $iter = new RecursiveIteratorIterator($dirIter);
 $iter = new RegexIterator($iter, '/^.+\.(php|inc)$/i', RegexIterator::GET_MATCH);
 
+$trimRoot = function (string $file): string {
+    return substr($file, strlen(getcwd()) + 1);
+};
+
 $isBlocked = function (string $file): bool {
     $blockedDirectories = [
         '/vendor/',
@@ -106,12 +110,15 @@ foreach ($iter as $matches) {
     if ($isBlocked($file)) {
         continue;
     }
-    echo "\n$file...";
+    $relativeFile = $trimRoot($file);
+
+    echo "\n$relativeFile...";
 
     $code = file_get_contents($file);
     if ($code === false) {
         continue;
     }
+
 
     try {
         $ast = $parser->parse($code);
@@ -120,7 +127,7 @@ foreach ($iter as $matches) {
         }
 
         $traverser = new NodeTraverser();
-        $collector = new GlobalDefinitionCollector($file);
+        $collector = new GlobalDefinitionCollector($relativeFile);
         $traverser->addVisitor($collector);
         $traverser->traverse($ast);
 
@@ -135,6 +142,8 @@ foreach ($iter as $matches) {
     }
 }
 
+$isGha = getenv('GITHUB_ACTIONS') === 'true';
+
 $dupes = array_filter($allDefinitions, fn ($locs) => count($locs) > 1);
 
 if (count($dupes) === 0){
@@ -148,6 +157,14 @@ foreach ($dupes as $fnName => $locations) {
     printf("Function `%s` defined in %d places:\n", $fnName, count($locations));
     foreach ($locations as $loc) {
         printf("  - %s:%d\n", $loc['file'], $loc['line']);
+        if ($isGha) {
+            printf(
+                "::error file=%s,line=%d::%s\n",
+                $loc['file'],
+                $loc['line'],
+                'Function defined in multiple locations',
+            );
+        }
     }
 }
 
