@@ -1,0 +1,205 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * Duplicate function detection script
+ *
+ * @package   OpenEMR
+ * @link      https://www.open-emr.org
+ * @author    Eric Stern <erics@opencoreemr.com>
+ * @copyright 2026 OpenCoreEMR
+ * @license   https://github.com/openemr/openemr/blob/master/LICENSE GNU General Public License 3
+ *
+ * FAQ:
+ *
+ * Q: Why?
+ * A: Because there are a bunch of duplicate functions defined, and that's bad.
+ *
+ * Q: Why isn't this in PHPStan?
+ * A: PHPStan runs analysis in parallel and can't aggergate functions like
+ * this, and disabling parallelism would be prohibitively slow.
+ *
+ * Q: Why isn't this a symfony/console command?
+ * A: It _really_ wants to be, but the current infra requires connecting to the
+ * db for them to run. Once that's fixed, it'll get convererted. (See #10114)
+ */
+
+declare(strict_types=1);
+
+chdir(dirname(__DIR__));
+
+require 'vendor/autoload.php';
+
+use PhpParser\Error;
+use PhpParser\Node;
+use PhpParser\NodeVisitorAbstract;
+use PhpParser\NodeTraverser;
+use PhpParser\ParserFactory;
+
+final class GlobalDefinitionCollector extends NodeVisitorAbstract
+{
+    /** @var array<string, array<int, array{file: string, line: int}>> */
+    public array $definitions = [];
+
+    private bool $inGlobalNamespace = true;
+
+    public function __construct(
+        private string $currentFile,
+    ) {
+    }
+
+    public function enterNode(Node $node): void
+    {
+        if ($node instanceof Node\Stmt\Namespace_) {
+            // `namespace;` or `namespace {}` counts as global
+            $this->inGlobalNamespace = $node->name === null;
+            return;
+        }
+
+        if (!$this->inGlobalNamespace) {
+            return;
+        }
+
+        if (
+            $node instanceof Node\Stmt\Function_
+            || $node instanceof Node\Stmt\Class_
+            || $node instanceof Node\Stmt\Interface_
+            || $node instanceof Node\Stmt\Trait_
+            || $node instanceof Node\Stmt\Enum_
+        ) {
+            if ($node->name === null) {
+                // anonymous class
+                return;
+            }
+
+            $name = $node->name->toString();
+
+            $this->definitions[$name][] = [
+                'file' => $this->currentFile,
+                'line' => $node->getStartLine(),
+            ];
+        }
+    }
+
+    public function leaveNode(Node $node): void
+    {
+        if ($node instanceof Node\Stmt\Namespace_) {
+            $this->inGlobalNamespace = true;
+        }
+    }
+}
+
+$isGha = getenv('GITHUB_ACTIONS') === 'true';
+$debug = getenv('ACTIONS_STEP_DEBUG') === 'true'
+    || getenv('ACTIONS_RUNNER_DEBUG') === 'true'
+    || getenv('DEBUG') !== false;
+
+
+$root = $argv[1] ?? getcwd();
+$root = realpath($root);
+
+if ($root === false) {
+    fwrite(STDERR, "Invalid root directory\n");
+    exit(1);
+}
+
+$parser = (new ParserFactory())->createForNewestSupportedVersion();
+
+/** @var array<string, array<int, array{file: string, line: int}>> */
+$allDefinitions = [];
+
+$dirIter = new RecursiveDirectoryIterator(
+    $root,
+    RecursiveDirectoryIterator::SKIP_DOTS
+);
+
+$iter = new RecursiveIteratorIterator($dirIter);
+$iter = new RegexIterator($iter, '/^.+\.(php|inc)$/i', RegexIterator::GET_MATCH);
+
+$trimRoot = function (string $file): string {
+    return substr($file, strlen(getcwd()) + 1);
+};
+
+$isBlocked = function (string $file): bool {
+    $blockedDirectories = [
+        '/vendor/',
+        '/tmp-phpstan',
+    ];
+    foreach ($blockedDirectories as $blocked) {
+        if (str_contains($file, $blocked)) {
+            return true;
+        }
+    }
+    return false;
+};
+
+foreach ($iter as $matches) {
+    $file = $matches[0];
+
+    if ($isBlocked($file)) {
+        continue;
+    }
+    $relativeFile = $trimRoot($file);
+
+    if ($debug) {
+        echo "\n$relativeFile...";
+    }
+
+    $code = file_get_contents($file);
+    if ($code === false) {
+        continue;
+    }
+
+
+    try {
+        $ast = $parser->parse($code);
+        if ($ast === null) {
+            continue;
+        }
+
+        $traverser = new NodeTraverser();
+        $collector = new GlobalDefinitionCollector($relativeFile);
+        $traverser->addVisitor($collector);
+        $traverser->traverse($ast);
+
+        foreach ($collector->definitions as $name => $locations) {
+            foreach ($locations as $loc) {
+                $allDefinitions[$name][] = $loc;
+            }
+        }
+    } catch (Error $e) {
+        // intentionally ignore parse errors; messy codebase assumed
+        continue;
+    }
+}
+
+$dupes = array_filter($allDefinitions, fn ($locs) => count($locs) > 1);
+
+if (count($dupes) === 0){
+    echo "No duplicate files detected!";
+    exit(0);
+}
+
+ksort($dupes);
+
+foreach ($dupes as $fnName => $locations) {
+    printf("Function `%s` defined in %d places:\n", $fnName, count($locations));
+    foreach ($locations as $loc) {
+        printf("  - %s:%d\n", $loc['file'], $loc['line']);
+        if ($isGha) {
+            printf(
+                "::error file=%s,line=%d::%s\n",
+                $loc['file'],
+                $loc['line'],
+                'Function defined in multiple locations',
+            );
+        }
+    }
+}
+
+printf(
+    "Total %d duplicate function names across %d definitions",
+    count($dupes),
+    array_reduce($dupes, fn ($soFar, $dupe) => $soFar + count($dupe), 0),
+);
+exit(1);
