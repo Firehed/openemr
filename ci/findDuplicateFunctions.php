@@ -7,8 +7,6 @@ chdir(dirname(__DIR__));
 
 require 'vendor/autoload.php';
 
-// ini_set('memory_limit', '8g');
-
 use PhpParser\Error;
 use PhpParser\Node;
 use PhpParser\NodeVisitorAbstract;
