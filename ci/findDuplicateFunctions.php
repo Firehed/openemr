@@ -3,9 +3,11 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/vendor/autoload.php';
+chdir(dirname(__DIR__));
 
-ini_set('memory_limit', '8g');
+require 'vendor/autoload.php';
+
+// ini_set('memory_limit', '8g');
 
 use PhpParser\Error;
 use PhpParser\Node;
@@ -140,28 +142,20 @@ foreach ($iter as $matches) {
 }
 
 $dupes = array_filter($allDefinitions, fn ($locs) => count($locs) > 1);
-print_r($dupes);
-exit;
-    
 
-uasort(
-    $allDefinitions,
-    static fn(array $a, array $b): int => count($b) <=> count($a)
-);
+if (count($dupes) === 0){
+    echo "No duplicate files detected!";
+    exit(0);
+}
 
-$dupes = [];
-foreach ($allDefinitions as $name => $locations) {
-    echo $name . ' (' . count($locations) . ")\n";
+ksort($dupes);
+
+foreach ($dupes as $fnName => $locations) {
+    printf("Function `%s` defined in %d places:\n", $fnName, count($locations));
     foreach ($locations as $loc) {
-        echo '  - ' . $loc['file'] . ':' . $loc['line'] . "\n";
-    }
-
-    if (count($locations) > 1) {
-        $dupes[]= $name;
+        printf("  - %s:%d\n", $loc['file'], $loc['line']);
     }
 }
 
-echo count($allDefinitions) . ' defs in globals' . "\n";
-
-echo count($dupes) . ' duplicate definitions: ';
-print_r($dupes);
+printf("Total %d duplicate functions", count($dupes));
+exit(1);
