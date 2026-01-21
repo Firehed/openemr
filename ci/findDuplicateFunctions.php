@@ -18,15 +18,11 @@ final class GlobalDefinitionCollector extends NodeVisitorAbstract
     /** @var array<string, array<int, array{file: string, line: int}>> */
     public array $definitions = [];
 
-    /** @var bool */
     private bool $inGlobalNamespace = true;
 
-    /** @var string */
-    private string $currentFile;
-
-    public function __construct(string $currentFile)
-    {
-        $this->currentFile = $currentFile;
+    public function __construct(
+        private string $currentFile,
+    ) {
     }
 
     public function enterNode(Node $node): void
