@@ -66,6 +66,12 @@ final class GlobalDefinitionCollector extends NodeVisitorAbstract
     }
 }
 
+$isGha = getenv('GITHUB_ACTIONS') === 'true';
+$debug = getenv('ACTIONS_STEP_DEBUG') === 'true'
+    || getenv('ACTIONS_RUNNER_DEBUG') === 'true'
+    || getenv('DEBUG') !== false;
+
+
 $root = $argv[1] ?? getcwd();
 $root = realpath($root);
 
@@ -112,7 +118,9 @@ foreach ($iter as $matches) {
     }
     $relativeFile = $trimRoot($file);
 
-    echo "\n$relativeFile...";
+    if ($debug) {
+        echo "\n$relativeFile...";
+    }
 
     $code = file_get_contents($file);
     if ($code === false) {
@@ -141,8 +149,6 @@ foreach ($iter as $matches) {
         continue;
     }
 }
-
-$isGha = getenv('GITHUB_ACTIONS') === 'true';
 
 $dupes = array_filter($allDefinitions, fn ($locs) => count($locs) > 1);
 
