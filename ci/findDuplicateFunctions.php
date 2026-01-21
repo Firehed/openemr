@@ -1,6 +1,29 @@
 #!/usr/bin/env php
 <?php
 
+/**
+ * Duplicate function detection script
+ *
+ * @package   OpenEMR
+ * @link      https://www.open-emr.org
+ * @author    Eric Stern <erics@opencoreemr.com>
+ * @copyright 2026 OpenCoreEMR
+ * @license   https://github.com/openemr/openemr/blob/master/LICENSE GNU General Public License 3
+ *
+ * FAQ:
+ *
+ * Q: Why?
+ * A: Because there are a bunch of duplicate functions defined, and that's bad.
+ *
+ * Q: Why isn't this in PHPStan?
+ * A: PHPStan runs analysis in parallel and can't aggergate functions like
+ * this, and disabling parallelism would be prohibitively slow.
+ *
+ * Q: Why isn't this a symfony/console command?
+ * A: It _really_ wants to be, but the current infra requires connecting to the
+ * db for them to run. Once that's fixed, it'll get convererted. (See #10114)
+ */
+
 declare(strict_types=1);
 
 chdir(dirname(__DIR__));
