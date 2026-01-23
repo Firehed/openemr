@@ -36,9 +36,9 @@ function add_escape_custom($s)
  * function to support larger numbers in the future).
  *
  * @param   string $s  Limit variable to be escaped.
- * @return  string     Escaped limit variable.
+ * @return  int Escaped limit variable.
  */
-function escape_limit($s)
+function escape_limit($s): int
 {
     //prepare for safe mysql insertion
     $s = (int)$s;
@@ -55,9 +55,12 @@ function escape_limit($s)
  * @param   string $s  Sort order keyword variable to be escaped/sanitized.
  * @return  string     Escaped sort order keyword variable.
  */
-function escape_sort_order($s)
+function escape_sort_order($s): string
 {
-    return escape_identifier(strtolower($s), ["asc","desc"]);
+    if (strtolower($s) === 'desc') {
+        return 'desc';
+    }
+    return 'asc';
 }
 
 /**
