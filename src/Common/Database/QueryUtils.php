@@ -18,6 +18,39 @@ use Throwable;
 
 class QueryUtils
 {
+    private static ?QueryUtils $instance = null;
+
+    /**
+     * @var array<string, string> The tables in the db, with the lowercased
+     * table name as a key and the casing in the DB as a value.
+     */
+    private ?array $tables = null;
+
+    private static function instance(): QueryUtils
+    {
+        if (self::$instance === null) {
+            self::$instance = new QueryUtils();
+        }
+        return self::$instance;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function getTables(): array
+    {
+        if ($this->tables === null) {
+            /** @var array<int, array{string}> */
+            $data = self::fetchRecordsNoLog('SHOW TABLES');
+            $this->tables = [];
+            foreach ($data as $tableNameRow) {
+                $tableName = array_pop($tableNameRow);
+                $this->tables[strtolower($tableName)] = $tableName;
+            }
+        }
+        return $this->tables;
+    }
+
     /**
      * Function that will return an array listing
      * of columns that exist in a table.
@@ -37,9 +70,34 @@ class QueryUtils
         return $field_list;
     }
 
-    public static function escapeTableName($table)
+    /**
+     * Looks for the table name in the system, and returns the DB-case-matched
+     * version of that name if it exists. If no match is found, the application
+     * will exit and display a message.
+     *
+     * Important: new code should be using prepared statements with well-known
+     * table names. Needing this function should give you serious pause.
+     *
+     * @param string $table
+     * @return string The case-matached table name, if the table exists
+     */
+    public static function escapeTableName($table): string
     {
-        return \escape_table_name($table);
+        $tables = self::instance()->getTables();
+        $search = strtolower($table);
+        // If the table exists (as a lowercased match), return the
+        // case-preserved table name.
+        if (array_key_exists($search, $tables)) {
+            return $tables[$table];
+        }
+        error_log("ERROR: OpenEMR SQL Escaping ERROR of the following string: " . errorLogEscape($table), 0);
+        die(
+            "<br /><span style='color:red;font-weight:bold;'>"
+            . xlt("There was an OpenEMR SQL Escaping ERROR of the following string")
+            . " "
+            . text($table)
+            . "</span><br />"
+        );
     }
 
     public static function escapeColumnName($columnName, $tables = [])

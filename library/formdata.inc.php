@@ -12,6 +12,7 @@
  * @license   https://github.com/openemr/openemr/blob/master/LICENSE GNU General Public License 3
  */
 
+use OpenEMR\Common\Database\QueryUtils;
 
 /**
  * Escape a parameter to prepare for a sql query.
@@ -164,17 +165,9 @@ function escape_sql_column_name($s, $tables, $long = false, $throwException = fa
  * @param   string $s  sql table name variable to be escaped/sanitized.
  * @return  string     Escaped table name variable.
  */
-function escape_table_name($s)
+function escape_table_name($s): string
 {
-    $res = sqlStatementNoLog("SHOW TABLES");
-    $tables_array = [];
-    while ($row = sqlFetchArray($res)) {
-        $keys_return = array_keys($row);
-        $tables_array[] = $row[$keys_return[0]];
-    }
-
-    // Now can escape(via whitelisting) the sql table name
-    return escape_identifier($s, $tables_array, true, false);
+    return QueryUtils::escapeTableName($s);
 }
 
 /**

@@ -58,6 +58,9 @@ function js_url($text)
 
 /**
  * Escape variables that are outputted into the php error log.
+ *
+ * @param string $text
+ * @return string
  */
 function errorLogEscape($text)
 {
