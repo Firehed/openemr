@@ -100,9 +100,34 @@ class QueryUtils
         );
     }
 
-    public static function escapeColumnName($columnName, $tables = [])
+    /**
+     * @param string|string[] $columnName
+     * @param string[] $tables The specific tables to match against
+     *
+     * @return string the sanitized column name, or a comma-separate string of
+     * sanitized column names if the input was an array.
+     */
+    public static function escapeColumnName($columnName, $tables = []): string
     {
         return \escape_sql_column_name($columnName, $tables);
+
+        // Short-circuit
+        if ($columnName === '*') {
+            return $columnName;
+        }
+        $util = self::getInstance();
+        // Existing behavior: if no tables are specified, check against all of
+        // them
+        if ($tables === []) {
+            $tables = array_values($util->getTables());
+        }
+        // approx: select COLUMN_NAME from information_schema WHERE
+        // TABLE_SCHEMA = {dbname} (= $GLOBALS['adodb']['db']->database)
+        // populate cache TABLE_NAME=>COLUMN NAME
+        // then match
+
+        // OR MAYBE just select the expected column from information_schema and
+        // see if any rows are returned?
     }
 
     public static function fetchRecordsNoLog($sqlStatement, $binds = [])
