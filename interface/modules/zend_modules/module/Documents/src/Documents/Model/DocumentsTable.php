@@ -13,9 +13,8 @@
 namespace Documents\Model;
 
 use Application\Model\ApplicationTable;
-use Laminas\Db\TableGateway\AbstractTableGateway;
 
-class DocumentsTable extends AbstractTableGateway
+class DocumentsTable
 {
     /*
     * Save the category - document mapping

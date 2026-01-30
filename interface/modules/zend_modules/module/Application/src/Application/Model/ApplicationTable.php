@@ -15,17 +15,13 @@ namespace Application\Model;
 use DateTime;
 use Doctrine\DBAL\Connection;
 use Exception;
-use Laminas\Db\TableGateway\AbstractTableGateway;
 use OpenEMR\BC\Database;
 use OpenEMR\BC\Database\ZQueryResult;
 use OpenEMR\Common\Logging\EventAuditLogger;
 use OpenEMR\Common\Database\QueryUtils;
 
-class ApplicationTable extends AbstractTableGateway
+class ApplicationTable
 {
-    protected $table = 'application';
-    protected $adapter;
-
     public function __construct()
     {
     }

@@ -22,14 +22,12 @@ use CouchDB;
 use DOMDocument;
 use Dompdf\Dompdf;
 use Application\Model\ApplicationTable;
-use Laminas\Db\TableGateway\AbstractTableGateway;
-use Laminas\Db\Adapter\Driver\Pdo\Result;
 use OpenEMR\Common\Crypto\CryptoGen;
 use OpenEMR\Common\DirectMessaging\ErrorConstants;
 use OpenEMR\Common\Logging\SystemLogger;
 use XSLTProcessor;
 
-class EncountermanagerTable extends AbstractTableGateway
+class EncountermanagerTable
 {
     public function getEncounters($data, $getCount = null)
     {

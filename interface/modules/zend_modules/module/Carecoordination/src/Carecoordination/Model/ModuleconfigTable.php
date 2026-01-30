@@ -25,22 +25,15 @@
 // +------------------------------------------------------------------------------+
 namespace Carecoordination\Model;
 
-use Laminas\Db\TableGateway\TableGateway;
-use Laminas\Db\TableGateway\AbstractTableGateway;
-use Laminas\Db\Adapter\Adapter;
-use Laminas\Db\ResultSet\ResultSet;
-use Laminas\Db\Sql\Select;
-use Laminas\InputFilter\Factory as InputFactory;
-use Laminas\InputFilter\InputFilter;
-use Laminas\InputFilter\InputFilterAwareInterface;
-use Laminas\InputFilter\InputFilterInterface;
+use Application\Model\ApplicationTable;
 
-class ModuleconfigTable extends AbstractTableGateway
+class ModuleconfigTable
 {
     public function getUsers()
     {
         $users = ['0' => ''];
-        $res = $this->applicationTable->zQuery(("SELECT id, fname, lname, street, city, state, zip  FROM users WHERE abook_type='ccda'"));
+        $appTable = new ApplicationTable();
+        $res = $appTable->zQuery("SELECT id, fname, lname, street, city, state, zip  FROM users WHERE abook_type='ccda'");
         foreach ($res as $row) {
             $users[$row['id']] = $row['fname'] . " " . $row['lname'];
         }

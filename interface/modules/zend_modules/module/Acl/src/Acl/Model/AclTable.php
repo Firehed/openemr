@@ -13,21 +13,12 @@
 
 namespace Acl\Model;
 
-use Laminas\Db\TableGateway\AbstractTableGateway;
-use Laminas\Db\Adapter\Adapter;
-use Laminas\Db\ResultSet\ResultSet;
 use Application\Model\ApplicationTable;
 
-class AclTable extends AbstractTableGateway
+class AclTable
 {
-    protected $table = 'acl';
-
-    public function __construct(Adapter $adapter)
+    public function __construct()
     {
-        $this->adapter = $adapter;
-        $this->resultSetPrototype = new ResultSet();
-        $this->resultSetPrototype->setArrayObjectPrototype(new Acl());
-        $this->initialize();
     }
 
     public function aclSections($module_id)
