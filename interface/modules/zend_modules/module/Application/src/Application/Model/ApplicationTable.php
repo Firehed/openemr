@@ -39,14 +39,12 @@ class ApplicationTable
      * @param array   $params SQL Parameters
      * @param boolean $log    Logging True / False
      * @param boolean $error  Error Display True / False
-     * @return ZQueryResult|false
+     * @return ZQueryResult
      */
     public function zQuery($sql, $params = '', $log = true, $error = true)
     {
-        $return = false;
-        $result = false;
-
         $conn = $this->getConnection();
+        $result = false;
 
         if (!empty($GLOBALS['debug_ssl_mysql_connection'])) {
             $temp_return = $conn->executeQuery("SHOW STATUS LIKE 'Ssl_cipher'");
@@ -68,7 +66,7 @@ class ApplicationTable
                 $return = new ZQueryResult($rows);
             } else {
                 $conn->executeStatement($sql, $bindParams);
-                $lastInsertId = false;
+                $lastInsertId = null;
                 if (stripos($trimmed, 'INSERT') === 0) {
                     $lastInsertId = $conn->lastInsertId();
                 }
@@ -79,17 +77,14 @@ class ApplicationTable
             if ($error) {
                 $this->errorHandler($e, $sql, $params);
             }
+
+            if ($log) {
+                EventAuditLogger::getInstance()->auditSQLEvent($sql, $result, $params);
+            }
+
+            throw $e;
         }
 
-        /**
-         * Function auditSQLEvent
-         * Logging Mechanism
-         *
-         * using OpenEMR log function (auditSQLEvent)
-         *
-         * @see EventAuditLogger::auditSQLEvent
-         * Logging, if the $log is true
-         */
         if ($log) {
             EventAuditLogger::getInstance()->auditSQLEvent($sql, $result, $params);
         }

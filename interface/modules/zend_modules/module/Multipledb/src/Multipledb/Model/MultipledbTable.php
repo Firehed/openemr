@@ -81,7 +81,7 @@ class MultipledbTable
             [$id]
         );
 
-        return $row ?: false;
+        return $row ?: null;
     }
 
 

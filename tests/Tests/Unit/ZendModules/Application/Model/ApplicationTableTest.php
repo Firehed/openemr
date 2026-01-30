@@ -67,7 +67,7 @@ class ApplicationTableTest extends TestCase
             [],
             false
         );
-        self::assertSame(3, $result->count());
+        self::assertCount(3, $result);
     }
 
     public function testSelectCurrentReturnsFirstRow(): void
@@ -78,10 +78,10 @@ class ApplicationTableTest extends TestCase
         self::assertEquals('hello', $row['greeting']);
     }
 
-    public function testSelectCurrentReturnsFalseWhenEmpty(): void
+    public function testSelectCurrentReturnsNullWhenEmpty(): void
     {
         $result = $this->table->zQuery("SELECT 1 WHERE 1=0", [], false);
-        self::assertFalse($result->current());
+        self::assertNull($result->current());
     }
 
     public function testSelectWithParameterizedQuery(): void
@@ -108,7 +108,7 @@ class ApplicationTableTest extends TestCase
     public function testEmptyResultSetCountIsZero(): void
     {
         $result = $this->table->zQuery("SELECT 1 WHERE 1=0", [], false);
-        self::assertSame(0, $result->count());
+        self::assertCount(0, $result);
     }
 
     public function testResultCanBeIteratedMultipleTimes(): void
@@ -149,7 +149,7 @@ class ApplicationTableTest extends TestCase
         );
         $id = $result->getGeneratedValue();
         self::assertNotEmpty($id);
-        self::assertNotFalse($id);
+        self::assertNotNull($id);
     }
 
     public function testInsertedRowIsReadable(): void
@@ -207,7 +207,7 @@ class ApplicationTableTest extends TestCase
             ['after'],
             false
         );
-        self::assertSame(1, $result->count());
+        self::assertCount(1, $result);
         self::assertEquals('after', $result->current()['val']);
     }
 
@@ -235,7 +235,7 @@ class ApplicationTableTest extends TestCase
             [$id],
             false
         );
-        self::assertSame(0, $result->count());
+        self::assertCount(0, $result);
     }
 
     // ---------------------------------------------------------------
@@ -258,12 +258,15 @@ class ApplicationTableTest extends TestCase
     // Error handling
     // ---------------------------------------------------------------
 
-    public function testInvalidSqlReturnsFalse(): void
+    public function testInvalidSqlThrowsException(): void
     {
+        $this->expectException(\Exception::class);
         ob_start();
-        $result = $this->table->zQuery("NOT VALID SQL", [], false, true);
-        ob_end_clean();
-        self::assertFalse($result);
+        try {
+            $this->table->zQuery("NOT VALID SQL", [], false, true);
+        } finally {
+            ob_end_clean();
+        }
     }
 
     // ---------------------------------------------------------------

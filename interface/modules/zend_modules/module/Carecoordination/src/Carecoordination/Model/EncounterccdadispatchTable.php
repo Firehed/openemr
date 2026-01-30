@@ -4221,16 +4221,13 @@ class EncounterccdadispatchTable
      */
     private function is_snomed_codes_installed(ApplicationTable $appTable)
     {
-        $codes_installed = false;
-        // this throws an exception... which is sad
         // TODO: is there a better way to know if the snomed codes are installed instead of using this method?
-        // we set $error=false or else it will display on the screen, which seems counterintuitive... it also suppresses the exception
-        $result = $appTable->zQuery("Describe `sct_descriptions`", $params = '', $log = true, $error = false);
-        if ($result !== false) { // will return false if there is an error
-            $codes_installed = true;
+        try {
+            $appTable->zQuery("Describe `sct_descriptions`", [], false, false);
+            return true;
+        } catch (\Exception) {
+            return false;
         }
-
-        return $codes_installed;
     }
 
     /**

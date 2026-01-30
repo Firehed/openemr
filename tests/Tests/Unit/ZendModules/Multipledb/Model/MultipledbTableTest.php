@@ -128,10 +128,10 @@ class MultipledbTableTest extends TestCase
         self::assertEquals('getbyid_ns', $row['namespace']);
     }
 
-    public function testGetMultipledbByIdReturnsFalseForMissing(): void
+    public function testGetMultipledbByIdReturnsNullForMissing(): void
     {
         $result = $this->table->getMultipledbById(999999999);
-        self::assertFalse($result);
+        self::assertNull($result);
     }
 
     // ---------------------------------------------------------------
@@ -182,7 +182,7 @@ class MultipledbTableTest extends TestCase
             fn($v) => $v !== $id
         );
 
-        self::assertFalse($this->table->getMultipledbById($id));
+        self::assertNull($this->table->getMultipledbById($id));
     }
 
     // ---------------------------------------------------------------

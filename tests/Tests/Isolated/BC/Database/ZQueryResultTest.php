@@ -28,13 +28,13 @@ class ZQueryResultTest extends TestCase
             ['id' => 2],
             ['id' => 3],
         ]);
-        self::assertSame(3, $result->count());
+        self::assertCount(3, $result);
     }
 
     public function testCountReturnsZeroWhenEmpty(): void
     {
         $result = new ZQueryResult([]);
-        self::assertSame(0, $result->count());
+        self::assertCount(0, $result);
     }
 
     public function testCurrentReturnsFirstRow(): void
@@ -46,10 +46,10 @@ class ZQueryResultTest extends TestCase
         self::assertSame(['name' => 'first'], $result->current());
     }
 
-    public function testCurrentReturnsFalseWhenEmpty(): void
+    public function testCurrentReturnsNullWhenEmpty(): void
     {
         $result = new ZQueryResult([]);
-        self::assertFalse($result->current());
+        self::assertNull($result->current());
     }
 
     public function testIterationYieldsAllRows(): void
@@ -89,10 +89,10 @@ class ZQueryResultTest extends TestCase
         self::assertSame('123', $result->getGeneratedValue());
     }
 
-    public function testGetGeneratedValueReturnsFalseByDefault(): void
+    public function testGetGeneratedValueReturnsNullByDefault(): void
     {
         $result = new ZQueryResult([['id' => 1]]);
-        self::assertFalse($result->getGeneratedValue());
+        self::assertNull($result->getGeneratedValue());
     }
 
     public function testCanBeIteratedMultipleTimes(): void

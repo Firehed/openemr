@@ -29,13 +29,13 @@ class ZQueryResult implements IteratorAggregate, Countable
     /** @var array<int, array<string, mixed>> */
     private array $rows;
 
-    private string|int|false $lastInsertId;
+    private string|int|null $lastInsertId;
 
     /**
      * @param array<int, array<string, mixed>> $rows
-     * @param string|int|false $lastInsertId
+     * @param string|int|null $lastInsertId
      */
-    public function __construct(array $rows, string|int|false $lastInsertId = false)
+    public function __construct(array $rows, string|int|null $lastInsertId = null)
     {
         $this->rows = $rows;
         $this->lastInsertId = $lastInsertId;
@@ -52,21 +52,21 @@ class ZQueryResult implements IteratorAggregate, Countable
     }
 
     /**
-     * Returns the first row, or false if empty.
+     * Returns the first row, or null if empty.
      *
-     * @return array<string, mixed>|false
+     * @return array<string, mixed>|null
      */
-    public function current(): array|false
+    public function current(): ?array
     {
-        return $this->rows[0] ?? false;
+        return $this->rows[0] ?? null;
     }
 
     /**
      * Returns the last insert ID captured at query time.
      *
-     * @return string|int|false
+     * @return string|int|null
      */
-    public function getGeneratedValue(): string|int|false
+    public function getGeneratedValue(): string|int|null
     {
         return $this->lastInsertId;
     }
