@@ -2,9 +2,6 @@
 
 namespace Ccr;
 
-use Ccr\Model\Ccr;
-use Ccr\Model\CcrTable;
-use Laminas\Db\TableGateway\TableGateway;
 use Laminas\ModuleManager\ModuleManager;
 use Laminas\View\Helper\Openemr\Emr;
 use Laminas\View\Helper\Openemr\Menu;
