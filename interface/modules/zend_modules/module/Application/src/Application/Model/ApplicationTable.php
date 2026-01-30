@@ -68,7 +68,10 @@ class ApplicationTable
                 $return = new ZQueryResult($rows);
             } else {
                 $conn->executeStatement($sql, $bindParams);
-                $lastInsertId = $conn->lastInsertId();
+                $lastInsertId = false;
+                if (stripos($trimmed, 'INSERT') === 0) {
+                    $lastInsertId = $conn->lastInsertId();
+                }
                 $return = new ZQueryResult([], $lastInsertId);
             }
             $result = true;
