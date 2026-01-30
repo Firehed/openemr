@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Custom PHPStan Rule to Forbid Laminas-DB Usage in Modern Code
+ * Custom PHPStan Rule to Forbid Laminas-DB Usage
  *
- * This rule prevents use of laminas-db classes outside of the legacy zend_modules directory.
- * Laminas-DB is deprecated and scheduled for removal.
+ * This rule prevents use of laminas-db classes anywhere in the codebase.
+ * Laminas-DB has been removed and replaced with Doctrine DBAL.
  *
  * @package   OpenEMR
  * @author    Michael A. Smith <michael@opencoreemr.com>
@@ -27,12 +27,10 @@ use PHPStan\Rules\RuleErrorBuilder;
 class ForbiddenClassesRule implements Rule
 {
     /**
-     * Forbidden Laminas-DB namespace patterns
+     * Forbidden namespace prefixes
      */
     private const FORBIDDEN_NAMESPACES = [
-        'Laminas\\Db\\Adapter\\',
-        'Laminas\\Db\\Sql\\',
-        'Laminas\\Db\\TableGateway\\',
+        'Laminas\\Db\\',
     ];
 
     public function getNodeType(): string
@@ -60,13 +58,12 @@ class ForbiddenClassesRule implements Rule
             // Check if this is a forbidden Laminas-DB import
             if ($this->isForbiddenImport($importedName)) {
                 $message = sprintf(
-                    'Laminas-DB class "%s" is deprecated. Use QueryUtils or DatabaseQueryTrait instead.',
+                    'Laminas-DB class "%s" is forbidden. Use Doctrine DBAL instead.',
                     $importedName
                 );
 
                 yield RuleErrorBuilder::message($message)
                     ->identifier('openemr.deprecatedLaminasDb')
-                    ->tip('See src/Common/Database/QueryUtils.php for modern database patterns')
                     ->build();
             }
         }

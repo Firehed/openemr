@@ -13,7 +13,6 @@
 
 namespace Acl;
 
-use Acl\Model\AclTable;
 use Laminas\ModuleManager\ModuleManager;
 
 class Module
@@ -26,19 +25,6 @@ class Module
                 'namespaces' => [
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ],
-            ],
-        ];
-    }
-
-    public function getServiceConfig()
-    {
-        return [
-            'factories' => [
-                \Acl\Model\AclTable::class =>  function ($sm) {
-                    $dbAdapter = $sm->get(\Laminas\Db\Adapter\Adapter::class);
-                    $table = new AclTable($dbAdapter);
-                    return $table;
-                },
             ],
         ];
     }

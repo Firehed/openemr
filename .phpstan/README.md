@@ -4,6 +4,12 @@ This directory contains custom PHPStan rules to enforce modern coding patterns i
 
 ## Rules
 
+### ForbiddenClassesRule
+
+**Purpose:** Prevents use of `laminas-db` classes anywhere in the codebase.
+
+**Rationale:** Laminas-DB has been removed and replaced with Doctrine DBAL. This rule prevents regressions.
+
 ### ForbiddenGlobalsAccessRule
 
 **Purpose:** Prevents direct `$GLOBALS` array access in favor of `OEGlobalsBag::getInstance()`.
@@ -88,12 +94,6 @@ $result = $callable($arg1, $arg2);
 // or with argument unpacking
 $result = $callable(...$args);
 ```
-
-### ForbiddenClassesRule
-
-**Purpose:** Prevents use of `laminas-db` classes outside of the `zend_modules` directory.
-
-**Rationale:** Laminas-DB is deprecated and scheduled for removal.
 
 ### NoCoversAnnotationRule
 

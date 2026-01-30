@@ -7,11 +7,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../interface/forms/eye_mag/php/eye_mag_functions.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Class Ccr\\\\Model\\\\CcrTable constructor invoked with 1 parameter, 0 required\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/modules/zend_modules/module/Ccr/config/module.config.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Class OpenEMR\\\\Menu\\\\PatientMenuRole constructor invoked with 1 parameter, 0 required\\.$#',
     'count' => 1,
     'path' => __DIR__ . '/../../interface/patient_file/summary/demographics.php',

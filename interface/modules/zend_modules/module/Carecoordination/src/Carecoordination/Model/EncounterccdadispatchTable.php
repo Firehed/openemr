@@ -4163,7 +4163,7 @@ class EncounterccdadispatchTable
         $query = "SELECT provider_since_date, care_team_status FROM patient_data WHERE `pid`  = ?";
         $result = $appTable->zQuery($query, [$pid]);
         $row = $result->current();
-        return $row ?? null;
+        return $row ?: null;
     }
 
     /**

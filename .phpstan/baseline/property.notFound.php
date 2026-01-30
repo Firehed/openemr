@@ -42,11 +42,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../interface/modules/custom_modules/oe-module-faxsms/src/Controller/EmailClient.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Access to an undefined property Carecoordination\\\\Model\\\\ModuleconfigTable\\:\\:\\$applicationTable\\.$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../interface/modules/zend_modules/module/Carecoordination/src/Carecoordination/Model/ModuleconfigTable.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Access to an undefined property ParticipantsController\\:\\:\\$groupEventsModel\\.$#',
     'count' => 2,
     'path' => __DIR__ . '/../../interface/therapy_groups/therapy_groups_controllers/participants_controller.php',
