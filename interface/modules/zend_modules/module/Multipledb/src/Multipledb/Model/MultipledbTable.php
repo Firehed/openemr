@@ -20,48 +20,29 @@
 
 namespace Multipledb\Model;
 
+use Doctrine\DBAL\Connection;
+use OpenEMR\BC\Database;
 use OpenEMR\Common\Crypto\CryptoGen;
-use Laminas\Db\Sql\Expression;
-use Laminas\Db\TableGateway\TableGateway;
-use Laminas\Db\Sql\Predicate;
-use Application\Model\ApplicationTable;
-use Laminas\Db\Adapter\Adapter;
 
 class MultipledbTable
 {
-    protected $tableGateway;
-    protected $adapter;
-
-
-    /**
-     * MultipledbTable constructor.
-     * @param TableGateway $tableGateway
-     */
-    public function __construct(TableGateway $tableGateway)
+    private function getConnection(): Connection
     {
-        $this->tableGateway = $tableGateway;
-        $adapter = \Laminas\Db\TableGateway\Feature\GlobalAdapterFeature::getStaticAdapter();
-        $this->adapter = $adapter;
+        return Database::instance()->getConnection();
     }
 
     public function fetchAll()
     {
-        /* $resultSet = $this->tableGateway->select();
-         return $resultSet;*/
-
-        $rsArray = [];
-        $rs = $this->tableGateway->select();
-        foreach ($rs as $r) {
-            $rsArray[] = get_object_vars($r);
-        }
-
-        return $rsArray;
+        return $this->getConnection()
+            ->fetchAllAssociative("SELECT * FROM multiple_db");
     }
 
     public function checknamespace($namespace)
     {
-        $rowset = $this->tableGateway->select(['namespace' => $namespace]);
-        $count = $rowset->count();
+        $count = (int) $this->getConnection()->fetchOne(
+            "SELECT COUNT(*) FROM multiple_db WHERE namespace = ?",
+            [$namespace]
+        );
 
         if ($count and $_SESSION['multiple_edit_id'] == 0) {
             return 1;
@@ -80,29 +61,27 @@ class MultipledbTable
             unset($db['password']);
         }
 
+        $conn = $this->getConnection();
         if ($id) {
-            $this->tableGateway->update($db, ['id' => $id]);
+            $conn->update('multiple_db', $db, ['id' => $id]);
         } else {
-            $this->tableGateway->insert($db);
+            $conn->insert('multiple_db', $db);
         }
     }
 
     public function deleteMultidbById($id)
     {
-        $this->tableGateway->delete(['id' => (int)$id]);
+        $this->getConnection()->delete('multiple_db', ['id' => (int)$id]);
     }
 
     public function getMultipledbById($id)
     {
+        $row = $this->getConnection()->fetchAssociative(
+            "SELECT * FROM multiple_db WHERE id = ?",
+            [$id]
+        );
 
-        $rowset = $this->tableGateway->select(['id' => $id]);
-        $row = $rowset->current();
-        if (!$row) {
-            return false;
-            //throw new \Exception("Could not find row $serial_no");
-        }
-
-        return $row;
+        return $row ?: false;
     }
 
 
