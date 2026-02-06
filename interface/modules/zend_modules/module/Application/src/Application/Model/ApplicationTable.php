@@ -13,32 +13,22 @@
 namespace Application\Model;
 
 use DateTime;
+use Doctrine\DBAL\Connection;
 use Exception;
-use Laminas\Db\Adapter\Adapter;
-use Laminas\Db\Adapter\Exception\ExceptionInterface;
-use Laminas\Db\TableGateway\AbstractTableGateway;
-use Laminas\Db\ResultSet\ResultSet;
-use Laminas\Db\TableGateway\Feature\GlobalAdapterFeature;
+use OpenEMR\BC\Database;
+use OpenEMR\BC\Database\ZQueryResult;
 use OpenEMR\Common\Logging\EventAuditLogger;
 use OpenEMR\Common\Database\QueryUtils;
 
-class ApplicationTable extends AbstractTableGateway
+class ApplicationTable
 {
-    protected $table = 'application';
-    protected $adapter;
-
-    /**
-     *
-     * @param Adapter $adapter
-     */
     public function __construct()
     {
-        // TODO: I can't find any reason why we grab the static adapter instead of injecting a regular DB adapter here...
-        $adapter = \Laminas\Db\TableGateway\Feature\GlobalAdapterFeature::getStaticAdapter();
-        $this->adapter = $adapter;
-        $this->resultSetPrototype = new ResultSet();
-        $this->resultSetPrototype->setArrayObjectPrototype(new Application());
-        $this->initialize();
+    }
+
+    private function getConnection(): Connection
+    {
+        return Database::instance()->getConnection();
     }
 
     /**
@@ -49,39 +39,52 @@ class ApplicationTable extends AbstractTableGateway
      * @param array   $params SQL Parameters
      * @param boolean $log    Logging True / False
      * @param boolean $error  Error Display True / False
-     * @return type
+     * @return ZQueryResult
      */
     public function zQuery($sql, $params = '', $log = true, $error = true)
     {
-        $return = false;
+        $conn = $this->getConnection();
         $result = false;
 
         if (!empty($GLOBALS['debug_ssl_mysql_connection'])) {
-            $temp_return = $this->adapter->query("SHOW STATUS LIKE 'Ssl_cipher';")->execute();
-            foreach ($temp_return as $temp_row) {
+            $temp_return = $conn->executeQuery("SHOW STATUS LIKE 'Ssl_cipher'");
+            foreach ($temp_return->fetchAllAssociative() as $temp_row) {
                 error_log("CHECK SSL CIPHER IN ZEND: " . errorLogEscape(print_r($temp_row, true)));
             }
         }
 
         try {
-            $statement = $this->adapter->query($sql);
-            $return = $statement->execute($params);
+            $bindParams = is_array($params) ? $params : [];
+            $trimmed = ltrim($sql);
+            $isSelect = stripos($trimmed, 'SELECT') === 0
+                || stripos($trimmed, 'SHOW') === 0
+                || stripos($trimmed, 'DESCRIBE') === 0;
+
+            if ($isSelect) {
+                $dbalResult = $conn->executeQuery($sql, $bindParams);
+                $rows = $dbalResult->fetchAllAssociative();
+                $return = new ZQueryResult($rows);
+            } else {
+                $conn->executeStatement($sql, $bindParams);
+                $lastInsertId = null;
+                if (stripos($trimmed, 'INSERT') === 0) {
+                    $lastInsertId = $conn->lastInsertId();
+                }
+                $return = new ZQueryResult([], $lastInsertId);
+            }
             $result = true;
-        } catch (\Exception | ExceptionInterface $e) {
+        } catch (\Exception $e) {
             if ($error) {
                 $this->errorHandler($e, $sql, $params);
             }
+
+            if ($log) {
+                EventAuditLogger::getInstance()->auditSQLEvent($sql, $result, $params);
+            }
+
+            throw $e;
         }
 
-        /**
-         * Function auditSQLEvent
-         * Logging Mechanism
-         *
-         * using OpenEMR log function (auditSQLEvent)
-         *
-         * @see EventAuditLogger::auditSQLEvent
-         * Logging, if the $log is true
-         */
         if ($log) {
             EventAuditLogger::getInstance()->auditSQLEvent($sql, $result, $params);
         }
@@ -102,13 +105,12 @@ class ApplicationTable extends AbstractTableGateway
      */
     public function errorHandler($e, $sql, $binds = '')
     {
-        $escaper = new \Laminas\Escaper\Escaper('utf-8');
         $trace = $e->getTraceAsString();
         $nLast = strpos((string) $trace, '[internal function]');
         $trace = substr((string) $trace, 0, ($nLast - 3));
         $logMsg = '';
         do {
-            $logMsg .= "\r Exception: " . $escaper->escapeHtml($e->getMessage());
+            $logMsg .= "\r Exception: " . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
         } while ($e = $e->getPrevious());
         /** List all Params */
         $processedBinds = "";
@@ -131,8 +133,8 @@ class ApplicationTable extends AbstractTableGateway
         echo '<pre><span style="color: red;">';
         echo 'ERROR : ' . $logMsg;
         echo "\r\n";
-        echo 'SQL statement : ' . $escaper->escapeHtml($sql);
-        echo $escaper->escapeHtml($processedBinds);
+        echo 'SQL statement : ' . htmlspecialchars($sql, ENT_QUOTES, 'UTF-8');
+        echo htmlspecialchars($processedBinds, ENT_QUOTES, 'UTF-8');
         echo '</span></pre>';
         echo '<pre>';
         echo $trace;
@@ -152,7 +154,7 @@ class ApplicationTable extends AbstractTableGateway
      */
     public function quoteValue($value)
     {
-        return $this->adapter->platform->quoteValue($value);
+        return $this->getConnection()->quote($value);
     }
 
     /**

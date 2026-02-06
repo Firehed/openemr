@@ -23,7 +23,6 @@ use DOMXPath;
 use Exception;
 use Laminas\Config\Reader\ReaderInterface;
 use Laminas\Config\Reader\Xml;
-use Laminas\Db\TableGateway\AbstractTableGateway;
 use OpenEMR\Common\Command\Trait\CommandLineDebugStylerTrait;
 use OpenEMR\Services\Cda\CdaTemplateImportDispose;
 use OpenEMR\Services\Cda\CdaTemplateParse;
@@ -37,7 +36,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 use function PHPUnit\Framework\throwException;
 
-class CarecoordinationTable extends AbstractTableGateway
+class CarecoordinationTable
 {
     use CommandLineDebugStylerTrait;
 

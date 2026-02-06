@@ -74,6 +74,14 @@ class Database
     }
 
     /**
+     * Returns the underlying DBAL Connection.
+     */
+    public function getConnection(): Connection
+    {
+        return $this->conn;
+    }
+
+    /**
      * Parses the <=8.0.0 (and probably later) db config files into a format
      * usable by `doctrine/dbal`.
      *

@@ -12,28 +12,14 @@
 
 namespace Immunization\Model;
 
-use Laminas\Db\TableGateway\TableGateway;
-use Laminas\Db\TableGateway\AbstractTableGateway;
-use Laminas\Db\Adapter\Adapter;
-use Laminas\Db\ResultSet\ResultSet;
-use Laminas\Db\Sql\Select;
-use Laminas\InputFilter\Factory as InputFactory;
-use Laminas\InputFilter\InputFilter;
-use Laminas\InputFilter\InputFilterAwareInterface;
-use Laminas\InputFilter\InputFilterInterface;
 use Application\Model\ApplicationTable;
 
-class ImmunizationTable extends AbstractTableGateway
+class ImmunizationTable
 {
-    public $tableGateway;
     protected $applicationTable;
 
-    public function __construct(TableGateway $tableGateway)
+    public function __construct()
     {
-        $this->tableGateway = $tableGateway;
-        $adapter = \Laminas\Db\TableGateway\Feature\GlobalAdapterFeature::getStaticAdapter();
-        $this->adapter = $adapter;
-        $this->resultSetPrototype = new ResultSet();
         $this->applicationTable = new ApplicationTable();
     }
 

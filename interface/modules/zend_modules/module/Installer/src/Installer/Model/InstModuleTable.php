@@ -16,11 +16,6 @@
 
 namespace Installer\Model;
 
-use Laminas\Db\Adapter\Driver\Pdo\Result;
-use Laminas\Db\TableGateway\TableGateway;
-use Laminas\Db\TableGateway\Feature\GlobalAdapterFeature;
-use Laminas\Config\Reader\Ini;
-use Laminas\Db\ResultSet\ResultSet;
 use Application\Model\ApplicationTable;
 use Interop\Container\ContainerInterface;
 use OpenEMR\Common\Database\SqlQueryException;
@@ -29,10 +24,6 @@ use OpenEMR\Services\Utils\SQLUpgradeService;
 
 class InstModuleTable
 {
-    protected $tableGateway;
-    protected $adapter;
-    protected $resultSetPrototype;
-
     /**
      * @var ApplicationTable
      */
@@ -49,17 +40,11 @@ class InstModuleTable
     public const MODULE_TYPE_CUSTOM = 0;
 
     /**
-     * @param TableGateway $tableGateway
      * @param ContainerInterface $container We have to create and populate some classes so we use the service container to load them
      */
     public function __construct(
-        TableGateway $tableGateway,
         private readonly ContainerInterface $container
     ) {
-        $this->tableGateway = $tableGateway;
-        $adapter = GlobalAdapterFeature::getStaticAdapter();
-        $this->adapter = $adapter;
-        $this->resultSetPrototype = new ResultSet();
         $this->applicationTable = new ApplicationTable();
         $this->module_zend_path = $GLOBALS['srcdir'] . DIRECTORY_SEPARATOR
             . ".." . DIRECTORY_SEPARATOR . $GLOBALS['baseModDir'] . $GLOBALS['zendModDir'] . DIRECTORY_SEPARATOR . "module";
@@ -362,10 +347,7 @@ class InstModuleTable
         $sql = "SELECT mod_directory, sql_version, acl_version,type FROM modules WHERE mod_id = ?";
         $results = $this->applicationTable->zQuery($sql, [$id]);
 
-        $resultSet = new ResultSet();
-        $resultSet->initialize($results);
-        $resArr = $resultSet->toArray();
-        $rslt = $resArr[0];
+        $rslt = $results->current();
 
         $mod = new InstModule();
         $mod->exchangeArray($rslt);

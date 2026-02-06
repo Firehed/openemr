@@ -123,11 +123,7 @@ return [
     'service_manager' => [
         'factories' => [
             Listener::class => InvokableFactory::class,
-            ApplicationTable::class => function (ContainerInterface $container, $requestedName) {
-                $dbAdapter = $container->get(\Laminas\Db\Adapter\Adapter::class);
-                $table = new ApplicationTable();
-                return $table;
-            },
+            ApplicationTable::class => fn(ContainerInterface $container, $requestedName): \Application\Model\ApplicationTable => new ApplicationTable(),
             SendtoTable::class => fn(ContainerInterface $container, $requestedName): \Application\Model\SendtoTable => new SendtoTable(),
             SendtoController::class => fn(ContainerInterface $container, $requestedName): \Application\Controller\SendtoController => new SendtoController($container->get(ApplicationTable::class), $container->get(SendtoTable::class)),
             ModuleMenuSubscriber::class => InvokableFactory::class

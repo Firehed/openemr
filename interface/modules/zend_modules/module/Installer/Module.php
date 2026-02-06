@@ -13,11 +13,7 @@
 
 namespace Installer;
 
-// Add these import statements:
-use Installer\Model\InstModule;
 use Installer\Model\InstModuleTable;
-use Laminas\Db\ResultSet\ResultSet;
-use Laminas\Db\TableGateway\TableGateway;
 
 /**
  * Handles the initial module load.  Any configuration should in the module.config.php file

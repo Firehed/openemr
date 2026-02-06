@@ -12,10 +12,7 @@
 
 namespace Ccr\Model;
 
-use Laminas\Db\TableGateway\AbstractTableGateway;
 use Application\Model\ApplicationTable;
-use Laminas\Db\Adapter\Driver\Pdo\Result;
-use Laminas\XmlRpc\Generator;
 use DOMDocument;
 use DOMXpath;
 use Document;
@@ -23,7 +20,7 @@ use CouchDB;
 
 require_once(__DIR__ . "/../../../../../../../../library/patient.inc.php");
 
-class CcrTable extends AbstractTableGateway
+class CcrTable
 {
     public function __construct()
     {

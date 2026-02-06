@@ -23,10 +23,7 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\Router\Http\Segment;
 use Multipledb\Controller\MultipledbController;
 use Multipledb\Controller\ModuleconfigController;
-use Multipledb\Model\Multipledb;
 use Multipledb\Model\MultipledbTable;
-use Laminas\Db\ResultSet\ResultSet;
-use Laminas\Db\TableGateway\TableGateway;
 use Interop\Container\ContainerInterface;
 
 return [
@@ -72,14 +69,7 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            MultipledbTable::class =>  function (ContainerInterface $container, $requestedName) {
-                $dbAdapter = $container->get(\Laminas\Db\Adapter\Adapter::class);
-                $resultSetPrototype = new ResultSet();
-                $resultSetPrototype->setArrayObjectPrototype(new Multipledb());
-                $tableGateway = new TableGateway('multiple_db', $dbAdapter, null, $resultSetPrototype);
-                $table = new MultipledbTable($tableGateway);
-                return $table;
-            }
+            MultipledbTable::class => fn(ContainerInterface $container, $requestedName): \Multipledb\Model\MultipledbTable => new MultipledbTable()
             ,ModuleconfigController::class => InvokableFactory::class
         ],
     ]

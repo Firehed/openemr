@@ -20,27 +20,12 @@
 
 namespace Patientvalidation\Model;
 
-use Laminas\Db\Sql\Expression;
-use Laminas\Db\TableGateway\TableGateway;
-use Laminas\Db\Sql\Predicate;
 use Application\Model\ApplicationTable;
-use Laminas\Db\Adapter\Adapter;
 
 class PatientDataTable
 {
-    protected $tableGateway;
-    protected $adapter;
-
-
-    /**
-     * PatientTable constructor.
-     * @param TableGateway $tableGateway
-     */
-    public function __construct(TableGateway $tableGateway)
+    public function __construct()
     {
-        $this->tableGateway = $tableGateway;
-        $adapter = \Laminas\Db\TableGateway\Feature\GlobalAdapterFeature::getStaticAdapter();
-        $this->adapter = $adapter;
     }
 
 

@@ -24,9 +24,6 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\Router\Http\Segment;
 use Patientvalidation\Controller\PatientvalidationController;
 use Patientvalidation\Model\PatientDataTable;
-use Patientvalidation\Model\PatientData;
-use Laminas\Db\ResultSet\ResultSet;
-use Laminas\Db\TableGateway\TableGateway;
 
 return [
 
@@ -69,14 +66,7 @@ return [
 
     'service_manager' => [
         'factories' => [
-            PatientDataTable::class =>  function (ContainerInterface $container, $requestedName) {
-                $dbAdapter = $container->get(\Laminas\Db\Adapter\Adapter::class);
-                $resultSetPrototype = new ResultSet();
-                $resultSetPrototype->setArrayObjectPrototype(new PatientData());
-                $tableGateway = new TableGateway('patient_data', $dbAdapter, null, $resultSetPrototype);
-                $table = new PatientDataTable($tableGateway);
-                return $table;
-            }
+            PatientDataTable::class => fn(ContainerInterface $container, $requestedName): \Patientvalidation\Model\PatientDataTable => new PatientDataTable()
         ],
     ]
 ];
