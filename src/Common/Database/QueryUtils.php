@@ -60,7 +60,7 @@ class QueryUtils
      */
     public static function listTableFields($table)
     {
-        $sql = "SHOW COLUMNS FROM " . \escape_table_name($table);
+        $sql = "SHOW COLUMNS FROM " . self::escapeTableName($table);
         $field_list = [];
         $records = self::fetchRecords($sql, [], false);
         foreach ($records as $record) {
@@ -144,7 +144,7 @@ class QueryUtils
                 . getSqlLastError() . " Statement: " . $sqlStatement);
         }
         $list = [];
-        while ($record = sqlFetchArray($recordset)) {
+        while ($record = self::fetchArrayFromResultSet($recordset)) {
             $list[] = $record;
         }
         return $list;
@@ -161,7 +161,7 @@ class QueryUtils
     {
         $recordSet = self::sqlStatementThrowException($sqlStatement, $binds);
         $list = [];
-        while ($record = sqlFetchArray($recordSet)) {
+        while ($record = self::fetchArrayFromResultSet($recordSet)) {
             $list[] = $record[$column] ?? null;
         }
         return $list;
@@ -182,7 +182,7 @@ class QueryUtils
     {
         $result = self::sqlStatementThrowException($sqlStatement, $binds, $noLog);
         $list = [];
-        while ($record = \sqlFetchArray($result)) {
+        while ($record = self::fetchArrayFromResultSet($result)) {
             $list[] = $record;
         }
         return $list;
@@ -200,7 +200,7 @@ class QueryUtils
     {
         $recordSet = self::sqlStatementThrowException($sqlStatement, $binds);
         $list = [];
-        while ($record = sqlFetchArray($recordSet)) {
+        while ($record = self::fetchArrayFromResultSet($recordSet)) {
             $list[$column] = $record[$column] ?? null;
         }
         return $list;
@@ -214,12 +214,26 @@ class QueryUtils
      * It will act upon the object returned from the
      * sqlStatement() function (and sqlQ() function).
      *
-     * @param recordset $resultSet
-     * @return array
+     * @param ADORecordSet|false $resultSet
+     * @return array|false
      */
     public static function fetchArrayFromResultSet($resultSet)
     {
-        return sqlFetchArray($resultSet);
+        //treat as an adodb recordset
+        if ($resultSet === false) {
+            return false;
+        }
+
+        if ($resultSet->EOF ?? '') {
+            return false;
+        }
+
+        //ensure it's an object (ie. is set)
+        if (!is_object($resultSet)) {
+            return false;
+        }
+
+        return $resultSet->FetchRow();
     }
 
     /**
@@ -241,11 +255,24 @@ class QueryUtils
      */
     public static function sqlStatementThrowException($statement, $binds = [], $noLog = false)
     {
-        if ($noLog) {
-            return \sqlStatementNoLog($statement, $binds, true);
-        } else {
-            return \sqlStatementThrowException($statement, $binds);
+        // Below line is to avoid a nasty bug in windows.
+        if (empty($binds)) {
+            $binds = false;
         }
+
+        //Run a adodb execute
+        // Note the auditSQLEvent function is embedded in the
+        //   Execute function.
+        if ($noLog) {
+            $recordset = $GLOBALS['adodb']['db']->ExecuteNoLog($statement, $binds);
+        } else {
+            $recordset = $GLOBALS['adodb']['db']->Execute($statement, $binds, true);
+        }
+        if ($recordset === false) {
+            throw new SqlQueryException($statement, "Failed to execute statement. Error: "
+                . getSqlLastError() . " Statement: " . $statement);
+        }
+        return $recordset;
     }
 
     /**
@@ -265,12 +292,12 @@ class QueryUtils
             // thrown which doesn't help us at all.
 
             $query = "SELECT 1 as id FROM " . $tableName . " LIMIT 1";
-            $statement = \sqlStatementNoLog($query, [], true);
+            $statement = self::sqlStatementThrowException($query, [], noLog: true);
             if ($statement !== false) {
                 unset($statement); // free the resource
                 return true;
             }
-        } catch (\Exception) {
+        } catch (\Throwable) {
             // do nothing as we know the table doesn't exist
         }
         return false;
@@ -336,11 +363,11 @@ class QueryUtils
         $sql .= !empty($order) ? " " . $order       : "";
         $sql .= !empty($limit) ? " LIMIT " . $limit : "";
 
-        $multipleResults = sqlStatementThrowException($sql, $data);
+        $multipleResults = self::sqlStatementThrowException($sql, $data);
 
         $results = [];
 
-        while ($row = sqlFetchArray($multipleResults)) {
+        while ($row = self::fetchArrayFromResultSet($multipleResults)) {
             array_push($results, $row);
         }
 
@@ -353,29 +380,27 @@ class QueryUtils
 
     public static function generateId()
     {
-        // @phpstan-ignore openemr.deprecatedSqlFunction
-        return \generate_id();
+        return $GLOBALS['adodb']['db']->GenID("sequences");
     }
 
     public static function ediGenerateId()
     {
-        // @phpstan-ignore openemr.deprecatedSqlFunction
-        return \edi_generate_id();
+        return $GLOBALS['adodb']['db']->GenID("edi_sequences");
     }
 
     public static function startTransaction()
     {
-        \sqlBeginTrans();
+        $GLOBALS['adodb']['db']->BeginTrans();
     }
 
     public static function commitTransaction()
     {
-        \sqlCommitTrans();
+        $GLOBALS['adodb']['db']->CommitTrans();
     }
 
     public static function rollbackTransaction()
     {
-        \sqlRollbackTrans();
+        $GLOBALS['adodb']['db']->RollbackTrans();
     }
 
     /**
@@ -394,7 +419,7 @@ class QueryUtils
             $return = $action();
 
             self::commitTransaction();
-            return $action;
+            return $return;
         } catch (Throwable $e) {
             self::rollbackTransaction();
             throw $e;
@@ -403,13 +428,15 @@ class QueryUtils
 
     public static function getLastInsertId()
     {
-        return \sqlGetLastInsertId();
+        // Return the correct last id generated using function
+        //   that is safe with the audit engine.
+        return ($GLOBALS['lastidado'] ?? 0) > 0 ? $GLOBALS['lastidado'] : $GLOBALS['adodb']['db']->Insert_ID();
     }
 
     public static function querySingleRow(string $sql, array $params = [])
     {
         $result = self::sqlStatementThrowException($sql, $params);
-        return \sqlFetchArray($result);
+        return self::fetchArrayFromResultSet($result);
     }
 
     /**
@@ -427,5 +454,15 @@ class QueryUtils
     public static function escapeLimit(string|int $limit)
     {
         return \escape_limit($limit);
+    }
+
+    /**
+     * Returns the number of rows affected by the last INSERT, UPDATE, or DELETE query.
+     *
+     * @return int|false
+     */
+    public static function affectedRows()
+    {
+        return $GLOBALS['adodb']['db']->Affected_Rows();
     }
 }
