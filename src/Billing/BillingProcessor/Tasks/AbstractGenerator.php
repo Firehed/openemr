@@ -39,7 +39,7 @@ abstract class AbstractGenerator extends AbstractProcessingTask implements Gener
      *
      * @param BillingClaim $claim
      */
-    public function execute(BillingClaim $claim)
+    public function execute(BillingClaim $claim): void
     {
         if ($this instanceof GeneratorCanValidateInterface) {
             if ($this->getAction() === BillingProcessor::VALIDATE_ONLY) {
@@ -71,7 +71,7 @@ abstract class AbstractGenerator extends AbstractProcessingTask implements Gener
      *
      * @param array $context
      */
-    public function complete(array $context)
+    public function complete(array $context): void
     {
         if ($this instanceof GeneratorCanValidateInterface) {
             if (
@@ -100,7 +100,7 @@ abstract class AbstractGenerator extends AbstractProcessingTask implements Gener
      * @param $location
      * @param bool $delete
      */
-    public function printDownloadClaimFileJS($filename, $location = '', $delete = false)
+    public function printDownloadClaimFileJS($filename, $location = '', $delete = false): void
     {
         $url = $GLOBALS['webroot'] . '/interface/billing/get_claim_file.php?' .
             'key=' . urlencode((string) $filename) .

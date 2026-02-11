@@ -46,7 +46,7 @@ class GeneratorHCFA extends AbstractGenerator implements GeneratorInterface, Gen
      *
      * @param array $context
      */
-    public function setup(array $context)
+    public function setup(array $context): void
     {
         // Instantiate mainly for the filename creation
         $this->batch = new BillingClaimBatch('.txt');
@@ -58,7 +58,7 @@ class GeneratorHCFA extends AbstractGenerator implements GeneratorInterface, Gen
      *
      * @param BillingClaim $claim
      */
-    protected function updateBatchFile(BillingClaim $claim)
+    protected function updateBatchFile(BillingClaim $claim): void
     {
         // Do the actual claim processing
         $log = 'HCFA ' . $claim->action . ' ';
@@ -75,7 +75,7 @@ class GeneratorHCFA extends AbstractGenerator implements GeneratorInterface, Gen
      *
      * @param BillingClaim $claim
      */
-    public function generate(BillingClaim $claim)
+    public function generate(BillingClaim $claim): void
     {
         // Validate and mark as 'billed'
         $this->validateAndClear($claim);
@@ -104,7 +104,7 @@ class GeneratorHCFA extends AbstractGenerator implements GeneratorInterface, Gen
      *
      * @param BillingClaim $claim
      */
-    public function validateOnly(BillingClaim $claim)
+    public function validateOnly(BillingClaim $claim): void
     {
         $this->updateBatchFile($claim);
         $this->printToScreen(xl("Successfully validated claim") . ": " . $claim->getId());
@@ -116,7 +116,7 @@ class GeneratorHCFA extends AbstractGenerator implements GeneratorInterface, Gen
      *
      * @param BillingClaim $claim
      */
-    public function validateAndClear(BillingClaim $claim)
+    public function validateAndClear(BillingClaim $claim): void
     {
         $this->validateOnly($claim);
 
@@ -142,7 +142,7 @@ class GeneratorHCFA extends AbstractGenerator implements GeneratorInterface, Gen
      *
      * @param array $context
      */
-    public function completeToScreen(array $context)
+    public function completeToScreen(array $context): void
     {
         // If we're validating only, or clearing and validating, don't write to our EDI directory
         // Just send to the browser in that case for the end-user to review.
@@ -159,7 +159,7 @@ class GeneratorHCFA extends AbstractGenerator implements GeneratorInterface, Gen
      *
      * @param array $context
      */
-    public function completeToFile(array $context)
+    public function completeToFile(array $context): void
     {
         $success = $this->batch->write_batch_file();
         if ($success) {

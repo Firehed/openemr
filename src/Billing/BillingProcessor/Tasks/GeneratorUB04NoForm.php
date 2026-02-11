@@ -34,7 +34,7 @@ class GeneratorUB04NoForm extends AbstractGenerator implements GeneratorInterfac
     protected $ub04id = [];
     protected $batch;
 
-    public function setup(array $context)
+    public function setup(array $context): void
     {
         $this->batch = new BillingClaimBatch('.pdf');
 
@@ -44,7 +44,7 @@ class GeneratorUB04NoForm extends AbstractGenerator implements GeneratorInterfac
         ub04_dispose();
     }
 
-    public function generate(BillingClaim $claim)
+    public function generate(BillingClaim $claim): void
     {
         $this->ub04id = get_ub04_array($claim->getPid(), $claim->getEncounter());
         $log = "";

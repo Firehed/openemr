@@ -59,7 +59,7 @@ class GeneratorX12 extends AbstractGenerator implements GeneratorInterface, Gene
      *
      * @param BillingClaim $claim
      */
-    protected function updateBatchFile(BillingClaim $claim)
+    protected function updateBatchFile(BillingClaim $claim): void
     {
         // Generate the file
         $log = 'X12 ' . $claim->action . ' ';
@@ -90,7 +90,7 @@ class GeneratorX12 extends AbstractGenerator implements GeneratorInterface, Gene
      *
      * @param array $context
      */
-    public function setup(array $context)
+    public function setup(array $context): void
     {
         $this->batch = new BillingClaimBatch('.txt', $context);
     }
@@ -101,7 +101,7 @@ class GeneratorX12 extends AbstractGenerator implements GeneratorInterface, Gene
      *
      * @param BillingClaim $claim
      */
-    public function validateOnly(BillingClaim $claim)
+    public function validateOnly(BillingClaim $claim): void
     {
         $this->updateBatchFile($claim);
         $this->printToScreen(xl("Successfully validated claim") . ": " . $claim->getId());
@@ -116,7 +116,7 @@ class GeneratorX12 extends AbstractGenerator implements GeneratorInterface, Gene
      *
      * @param BillingClaim $claim
      */
-    public function validateAndClear(BillingClaim $claim)
+    public function validateAndClear(BillingClaim $claim): void
     {
         $return = BillingUtilities::updateClaim(
             true,
@@ -145,7 +145,7 @@ class GeneratorX12 extends AbstractGenerator implements GeneratorInterface, Gene
      *
      * @param BillingClaim $claim
      */
-    public function generate(BillingClaim $claim)
+    public function generate(BillingClaim $claim): void
     {
         $tmp = BillingUtilities::updateClaim(
             true,
@@ -177,7 +177,7 @@ class GeneratorX12 extends AbstractGenerator implements GeneratorInterface, Gene
      *
      * @param array $context
      */
-    public function completeToScreen(array $context)
+    public function completeToScreen(array $context): void
     {
         $this->batch->append_claim_close();
         // If we're validating only, or clearing and validating, don't write to our EDI directory
@@ -195,7 +195,7 @@ class GeneratorX12 extends AbstractGenerator implements GeneratorInterface, Gene
      *
      * @param array $context
      */
-    public function completeToFile(array $context)
+    public function completeToFile(array $context): void
     {
         $this->batch->append_claim_close();
         $success = $this->batch->write_batch_file();

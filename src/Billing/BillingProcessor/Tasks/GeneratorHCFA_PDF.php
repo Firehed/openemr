@@ -66,7 +66,7 @@ class GeneratorHCFA_PDF extends AbstractGenerator implements
      *
      * @param array $context
      */
-    public function setup(array $context)
+    public function setup(array $context): void
     {
         $post = $context['post'];
         $this->pdf = new \Cezpdf('LETTER');
@@ -87,7 +87,7 @@ class GeneratorHCFA_PDF extends AbstractGenerator implements
      *
      * @param BillingClaim $claim
      */
-    protected function updateBatch(BillingClaim $claim)
+    protected function updateBatch(BillingClaim $claim): void
     {
         // Do the actual claim processing
         $log = 'HCFA PDF ' . $claim->action . ' ';
@@ -117,7 +117,7 @@ class GeneratorHCFA_PDF extends AbstractGenerator implements
      *
      * @param BillingClaim $claim
      */
-    public function generate(BillingClaim $claim)
+    public function generate(BillingClaim $claim): void
     {
         // Validate and mark as 'billed'
         $this->validateAndClear($claim);
@@ -146,7 +146,7 @@ class GeneratorHCFA_PDF extends AbstractGenerator implements
      *
      * @param BillingClaim $claim
      */
-    public function validateOnly(BillingClaim $claim)
+    public function validateOnly(BillingClaim $claim): void
     {
         $this->updateBatch($claim);
         $this->printToScreen(xl("Successfully validated claim") . ": " . $claim->getId());
@@ -158,7 +158,7 @@ class GeneratorHCFA_PDF extends AbstractGenerator implements
      *
      * @param BillingClaim $claim
      */
-    public function validateAndClear(BillingClaim $claim)
+    public function validateAndClear(BillingClaim $claim): void
     {
         $this->validateOnly($claim);
 
@@ -183,7 +183,7 @@ class GeneratorHCFA_PDF extends AbstractGenerator implements
      *
      * @param array $context
      */
-    public function completeToScreen(array $context)
+    public function completeToScreen(array $context): void
     {
         // If we are just validating, make a temp file
         $tmp_claim_file = $GLOBALS['temporary_files_dir'] .
@@ -213,7 +213,7 @@ class GeneratorHCFA_PDF extends AbstractGenerator implements
      *
      * @param array $context
      */
-    public function completeToFile(array $context)
+    public function completeToFile(array $context): void
     {
         // If a writable edi directory exists (and it should), write the pdf to it.
         $fh = @fopen($GLOBALS['OE_SITE_DIR'] . "/documents/edi/{$this->batch->getBatFilename()}", 'a');

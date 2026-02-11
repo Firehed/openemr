@@ -34,7 +34,7 @@ class GeneratorUB04Form_PDF extends AbstractGenerator implements GeneratorInterf
     protected $ub04id = [];
     protected $batch;
 
-    public function setup(array $context)
+    public function setup(array $context): void
     {
         $this->batch = new BillingClaimBatch('.pdf', $context);
 
@@ -47,7 +47,7 @@ class GeneratorUB04Form_PDF extends AbstractGenerator implements GeneratorInterf
      *
      * @param BillingClaim $claim
      */
-    public function generate(BillingClaim $claim)
+    public function generate(BillingClaim $claim): void
     {
         $this->ub04id = get_ub04_array($claim->getPid(), $claim->getEncounter());
         $ub_save = json_encode($this->ub04id);

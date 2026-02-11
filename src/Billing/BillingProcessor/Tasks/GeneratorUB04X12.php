@@ -37,7 +37,7 @@ class GeneratorUB04X12 extends AbstractGenerator implements GeneratorInterface, 
 
     protected $batch;
 
-    protected function updateBatch(BillingClaim $claim)
+    protected function updateBatch(BillingClaim $claim): void
     {
         // Do the UB04 processing
         $log = '';
@@ -59,7 +59,7 @@ class GeneratorUB04X12 extends AbstractGenerator implements GeneratorInterface, 
         $this->batch->addClaim($claim);
     }
 
-    public function setup(array $context)
+    public function setup(array $context): void
     {
         $this->batch = new BillingClaimBatch('.txt');
 
@@ -67,14 +67,14 @@ class GeneratorUB04X12 extends AbstractGenerator implements GeneratorInterface, 
         ub04_dispose();
     }
 
-    public function validateOnly(BillingClaim $claim)
+    public function validateOnly(BillingClaim $claim): void
     {
         $this->printToScreen(xl("Successfully validated claim") . ": " . $claim->getId());
         $this->ub04id = get_ub04_array($claim->getPid(), $claim->getEncounter());
-        return $this->updateBatch($claim);
+        $this->updateBatch($claim);
     }
 
-    public function validateAndClear(BillingClaim $claim)
+    public function validateAndClear(BillingClaim $claim): void
     {
         $this->ub04id = get_ub04_array($claim->getPid(), $claim->getEncounter());
         $ub_save = json_encode($this->ub04id);
@@ -93,7 +93,7 @@ class GeneratorUB04X12 extends AbstractGenerator implements GeneratorInterface, 
             $ub_save
         );
 
-        return $this->updateBatch($claim);
+        $this->updateBatch($claim);
     }
 
     /**
@@ -105,7 +105,7 @@ class GeneratorUB04X12 extends AbstractGenerator implements GeneratorInterface, 
      *
      * @param BillingClaim $claim
      */
-    public function generate(BillingClaim $claim)
+    public function generate(BillingClaim $claim): void
     {
         $this->validateAndClear($claim);
 
@@ -130,7 +130,7 @@ class GeneratorUB04X12 extends AbstractGenerator implements GeneratorInterface, 
         }
     }
 
-    public function completeToScreen(array $context)
+    public function completeToScreen(array $context): void
     {
         $this->batch->append_claim_close();
 
@@ -139,7 +139,7 @@ class GeneratorUB04X12 extends AbstractGenerator implements GeneratorInterface, 
         echo $wrap;
     }
 
-    public function completeToFile(array $context)
+    public function completeToFile(array $context): void
     {
         $this->batch->append_claim_close();
         $success = $this->batch->write_batch_file();

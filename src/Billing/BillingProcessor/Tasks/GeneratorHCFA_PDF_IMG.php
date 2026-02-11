@@ -41,7 +41,7 @@ class GeneratorHCFA_PDF_IMG extends GeneratorHCFA_PDF implements
      *
      * @param BillingClaim $claim
      */
-    protected function updateBatch(BillingClaim $claim)
+    protected function updateBatch(BillingClaim $claim): void
     {
         $log = '';
         $hcfa = new Hcfa1500();

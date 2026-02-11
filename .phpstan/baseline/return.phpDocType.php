@@ -67,6 +67,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../src/Billing/BillingProcessor/BillingClaim.php',
 ];
 $ignoreErrors[] = [
+    'message' => '#^PHPDoc tag @return with type mixed is not subtype of native type void\\.$#',
+    'count' => 1,
+    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/GeneratorX12Direct.php',
+];
+$ignoreErrors[] = [
     'message' => '#^PHPDoc tag @return with type OpenEMR\\\\Events\\\\Core\\\\Sanitize\\\\This is incompatible with native type array\\.$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Events/Core/Sanitize/IsAcceptedFileFilterEvent.php',

@@ -17,9 +17,9 @@ namespace OpenEMR\Billing\BillingProcessor;
 
 interface GeneratorInterface extends ProcessingTaskInterface
 {
-    public function setAction($action);
+    public function setAction($action): void;
 
-    public function generate(BillingClaim $claim);
+    public function generate(BillingClaim $claim): void;
 
-    public function completeToFile(array $context);
+    public function completeToFile(array $context): void;
 }

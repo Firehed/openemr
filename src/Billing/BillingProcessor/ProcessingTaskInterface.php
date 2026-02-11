@@ -14,9 +14,9 @@ namespace OpenEMR\Billing\BillingProcessor;
 
 interface ProcessingTaskInterface
 {
-    public function setup(array $context);
+    public function setup(array $context): void;
 
-    public function execute(BillingClaim $claim);
+    public function execute(BillingClaim $claim): void;
 
-    public function complete(array $context);
+    public function complete(array $context): void;
 }

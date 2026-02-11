@@ -24,7 +24,7 @@ class GeneratorExternal extends AbstractGenerator implements GeneratorInterface,
 
     protected $be;
 
-    public function setup($context = null)
+    public function setup($context = null): void
     {
         global $webserver_root;
         $EXPORT_INC = "$webserver_root/custom/BillingExport.php";
@@ -35,14 +35,14 @@ class GeneratorExternal extends AbstractGenerator implements GeneratorInterface,
         $this->be = new \BillingExport();
     }
 
-    public function generate(BillingClaim $claim)
+    public function generate(BillingClaim $claim): void
     {
         // Writes this claim row to the csv file on disk
         $this->be->addClaim($claim->getPid(), $claim->getEncounter());
-        return $this->clearClaim($claim);
+        $this->clearClaim($claim);
     }
 
-    public function completeToFile($context = null)
+    public function completeToFile($context = null): void
     {
         // Close external billing file.
         $this->be->close();

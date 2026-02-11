@@ -15,9 +15,9 @@ namespace OpenEMR\Billing\BillingProcessor;
 
 interface GeneratorCanValidateInterface
 {
-    public function validateOnly(BillingClaim $claim);
+    public function validateOnly(BillingClaim $claim): void;
 
-    public function validateAndClear(BillingClaim $claim);
+    public function validateAndClear(BillingClaim $claim): void;
 
-    public function completeToScreen(array $context);
+    public function completeToScreen(array $context): void;
 }

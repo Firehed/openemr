@@ -80,7 +80,7 @@ class GeneratorX12Direct extends AbstractGenerator implements GeneratorInterface
      *
      * @param $context
      */
-    public function setup(array $context)
+    public function setup(array $context): void
     {
         // We have to prepare our batches here
         // Get all of our x-12 partners and make sure we have
@@ -145,7 +145,7 @@ class GeneratorX12Direct extends AbstractGenerator implements GeneratorInterface
      *
      * @param BillingClaim $claim
      */
-    public function validateOnly(BillingClaim $claim)
+    public function validateOnly(BillingClaim $claim): void
     {
         $this->updateBatchFile($claim);
         $this->printToScreen(xl("Successfully validated claim") . ": " . $claim->getId());
@@ -158,7 +158,7 @@ class GeneratorX12Direct extends AbstractGenerator implements GeneratorInterface
      * @param BillingClaim $claim
      * @return mixed
      */
-    public function validateAndClear(BillingClaim $claim)
+    public function validateAndClear(BillingClaim $claim): void
     {
         $return = BillingUtilities::updateClaim(
             true,
@@ -173,8 +173,7 @@ class GeneratorX12Direct extends AbstractGenerator implements GeneratorInterface
             $claim->getPartner()
         );
 
-        // Return the batch we updated (depending on x-12 partner)
-        return $this->updateBatchFile($claim);
+        $this->updateBatchFile($claim);
     }
 
     /**
@@ -183,12 +182,12 @@ class GeneratorX12Direct extends AbstractGenerator implements GeneratorInterface
      *
      * @param BillingClaim $claim
      */
-    public function generate(BillingClaim $claim)
+    public function generate(BillingClaim $claim): void
     {
         // If we are doing final billing (normal) or validate and mark-as-billed,
         // Use the claim to update the appropriate batch file (depends on x-12 partner)
-        // and return the batch we updated
-        $batch = $this->validateAndClear($claim);
+        $this->validateAndClear($claim);
+        $batch = $this->x12_partner_batches[$claim->getPartner()];
 
         if (!BillingUtilities::updateClaim(false, $claim->getPid(), $claim->getEncounter(), -1, -1, 2, 2, $batch->getBatFilename())) {
             $this->printToScreen(xl("Internal error: claim ") . $claim->getId() . xl(" not found!") . "\n");
@@ -201,9 +200,8 @@ class GeneratorX12Direct extends AbstractGenerator implements GeneratorInterface
      * gen_x12 function.
      *
      * @param BillingClaim $claim
-     * @return mixed
      */
-    protected function updateBatchFile(BillingClaim $claim)
+    protected function updateBatchFile(BillingClaim $claim): void
     {
         // Get the correct batch file using the X-12 partner ID
         $batch = $this->x12_partner_batches[$claim->getPartner()];
@@ -253,8 +251,6 @@ class GeneratorX12Direct extends AbstractGenerator implements GeneratorInterface
         $this->pat_segment_counts[$claim->getPartner()] = $patSegmentCount;
         $this->appendToLog($log);
         $batch->append_claim($segs);
-
-        return $batch;
     }
 
     /**
@@ -267,7 +263,7 @@ class GeneratorX12Direct extends AbstractGenerator implements GeneratorInterface
      *
      * @param array $context
      */
-    public function completeToFile(array $context)
+    public function completeToFile(array $context): void
     {
         $this->finish($context, function ($context): void {
 
@@ -309,7 +305,7 @@ class GeneratorX12Direct extends AbstractGenerator implements GeneratorInterface
         });
     }
 
-    public function completeToScreen(array $context)
+    public function completeToScreen(array $context): void
     {
         $this->finish($context, function ($context): void {
 
@@ -334,7 +330,7 @@ class GeneratorX12Direct extends AbstractGenerator implements GeneratorInterface
      * @param array $context
      * @param callable $callback
      */
-    protected function finish(array $context, callable $callback)
+    protected function finish(array $context, callable $callback): void
     {
         $format_bat = "";
         $created_batches = [];
