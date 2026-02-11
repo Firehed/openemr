@@ -57,7 +57,7 @@ class ExportStreamWriter
      * @throws ExportWillShutdownException Thrown if the maximum export time has reached or the writer detects the process is about to end
      * @throws ExportException Thrown if any other error in attempting to export the data occurs
      */
-    public function append(FHIRResource $resource)
+    public function append(FHIRResource $resource): void
     {
         if ($this->willShutdown()) {
             throw new ExportWillShutdownException("Export time has exceeded shutdown limit", 0, $this->lastProcessedId);
@@ -96,7 +96,7 @@ class ExportStreamWriter
     /**
      * Flush any pending / buffered data out to the stream
      */
-    public function flush()
+    public function flush(): void
     {
         fflush($this->stream);
     }
@@ -156,7 +156,7 @@ class ExportStreamWriter
     /**
      * Increments the number of records that have been written by this exporter
      */
-    protected function incrementRecordCount()
+    protected function incrementRecordCount(): void
     {
         $this->recordsWritten++;
     }

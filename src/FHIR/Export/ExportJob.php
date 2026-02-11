@@ -393,7 +393,7 @@ class ExportJob
         $this->accessTokenId = $accessTokenId;
     }
 
-    public function setApiBaseUrl($baseUrl)
+    public function setApiBaseUrl($baseUrl): void
     {
         $this->apiBaseUrl = $baseUrl;
     }
