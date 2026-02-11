@@ -86,7 +86,7 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
         sqlStatementNoLog($sql, [$user_id, $unique_id, $exp_date, $client_id, $scope, $encodedContext]);
     }
 
-    public function revokeAccessToken($tokenId)
+    public function revokeAccessToken($tokenId): void
     {
         $this->getSystemLogger()->debug(self::class . "->revokeAccessToken() attempting to revoke access token ", ['tokenId' => $tokenId]);
         // Some logic to revoke the refresh token in a database
@@ -164,7 +164,7 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
      * Sets the context array that will be saved to the database for new access tokens.
      * @param $context The array of context variables.  If this is not an array the context is set to null;
      */
-    public function setContextForNewTokens($context)
+    public function setContextForNewTokens($context): void
     {
         $this->contextForNewTokens = is_array($context) && !empty($context) ? $context : null;
     }

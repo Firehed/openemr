@@ -18,12 +18,12 @@ use OpenEMR\Common\Auth\OpenIDConnect\Entities\AuthCodeEntity;
 
 class AuthCodeRepository implements AuthCodeRepositoryInterface
 {
-    public function persistNewAuthCode(AuthCodeEntityInterface $authCodeEntity)
+    public function persistNewAuthCode(AuthCodeEntityInterface $authCodeEntity): void
     {
         // Some logic to persist the auth code to a database
     }
 
-    public function revokeAuthCode($codeId)
+    public function revokeAuthCode($codeId): void
     {
         // Some logic to revoke the auth code in a database
     }

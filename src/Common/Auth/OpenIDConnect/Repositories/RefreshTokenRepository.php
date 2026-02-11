@@ -38,7 +38,7 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
         $this->issueNewRefreshToken = $issueNewRefreshToken === true;
     }
 
-    public function persistNewRefreshToken(RefreshTokenEntityInterface $refreshTokenEntity)
+    public function persistNewRefreshToken(RefreshTokenEntityInterface $refreshTokenEntity): void
     {
         $token = $this->getTokenByToken($refreshTokenEntity->getIdentifier());
         if (!empty($token)) {
@@ -58,7 +58,7 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
         sqlStatementNoLog($sql, [$user_id, $unique_id, $exp_date, $client_id]);
     }
 
-    public function revokeRefreshToken($tokenId)
+    public function revokeRefreshToken($tokenId): void
     {
         // Some logic to revoke the refresh token in a database
         $this->getSystemLogger()->debug(self::class . "->revokeRefreshToken() attempting to revoke refresh token ", ['tokenId' => $tokenId]);
