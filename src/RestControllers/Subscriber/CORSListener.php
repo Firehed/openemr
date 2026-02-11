@@ -21,7 +21,7 @@ class CORSListener implements EventSubscriberInterface
             KernelEvents::RESPONSE => [['onKernelResponse', 0]]
         ];
     }
-    public function onKernelRequest(RequestEvent $event)
+    public function onKernelRequest(RequestEvent $event): void
     {
         if ($event->hasResponse()) {
             // If the event already has a response, we do not need to process it further.
@@ -41,7 +41,7 @@ class CORSListener implements EventSubscriberInterface
         }
     }
 
-    public function onKernelResponse(ResponseEvent $event)
+    public function onKernelResponse(ResponseEvent $event): void
     {
         $response = $event->getResponse();
         $request = $event->getRequest();

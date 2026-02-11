@@ -47,7 +47,7 @@ class RestApiCreateEvent extends Event
      * @param $route
      * @param $action
      */
-    public function addToRouteMap($route, $action)
+    public function addToRouteMap($route, $action): void
     {
         $this->route_map[$route] = $action;
     }
@@ -56,7 +56,7 @@ class RestApiCreateEvent extends Event
      * @param $route
      * @param $action
      */
-    public function addToFHIRRouteMap($route, $action)
+    public function addToFHIRRouteMap($route, $action): void
     {
         $this->fhir_route_map[$route] = $action;
     }
@@ -65,7 +65,7 @@ class RestApiCreateEvent extends Event
      * @param $route
      * @param $action
      */
-    public function addToPortalRouteMap($route, $action)
+    public function addToPortalRouteMap($route, $action): void
     {
         $this->portal_route_map[$route] = $action;
     }
