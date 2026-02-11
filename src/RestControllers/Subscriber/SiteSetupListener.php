@@ -96,7 +96,7 @@ class SiteSetupListener implements EventSubscriberInterface
         return $web_root;
     }
 
-    public function onKernelRequest(RequestEvent $event)
+    public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
         if (!($request instanceof HttpRestRequest)) {

@@ -152,7 +152,7 @@ class SMARTLaunchToken
      * @return void
      * @throws \JsonException
      */
-    public function deserialize($serialized)
+    public function deserialize($serialized): void
     {
         $cryptoGen = new CryptoGen();
         $jsonEncrypted = base64_decode((string) $serialized);
@@ -185,7 +185,7 @@ class SMARTLaunchToken
     {
         return array_search($intent, self::VALID_INTENTS) !== false;
     }
-    public function setAppointmentUuid(string $appointmentUuid)
+    public function setAppointmentUuid(string $appointmentUuid): void
     {
         $this->appointmentUuid = $appointmentUuid;
     }
