@@ -87,7 +87,7 @@ class Address extends ORDataObject implements \JsonSerializable
         return $html ? nl2br($string) : $string;
     }
 
-    function set_id($id)
+    function set_id($id): void
     {
         $this->id = $id;
     }
@@ -95,7 +95,7 @@ class Address extends ORDataObject implements \JsonSerializable
     {
         return $this->id;
     }
-    function set_foreign_id($fid)
+    function set_foreign_id($fid): void
     {
         $this->foreign_id = $fid;
     }
@@ -103,7 +103,7 @@ class Address extends ORDataObject implements \JsonSerializable
     {
         return $this->foreign_id;
     }
-    function set_line1($line1)
+    function set_line1($line1): void
     {
         $this->line1 = $line1;
     }
@@ -111,7 +111,7 @@ class Address extends ORDataObject implements \JsonSerializable
     {
         return $this->line1;
     }
-    function set_line2($line2)
+    function set_line2($line2): void
     {
         $this->line2 = $line2;
     }
@@ -125,7 +125,7 @@ class Address extends ORDataObject implements \JsonSerializable
         $string .= " " . $this->get_line2();
         return $string;
     }
-    function set_city($city)
+    function set_city($city): void
     {
         $this->city = $city;
     }
@@ -133,7 +133,7 @@ class Address extends ORDataObject implements \JsonSerializable
     {
         return $this->city;
     }
-    function set_state($state)
+    function set_state($state): void
     {
         $this->state = strtoupper((string) $state);
     }
@@ -141,7 +141,7 @@ class Address extends ORDataObject implements \JsonSerializable
     {
         return $this->state;
     }
-    function set_zip($zip)
+    function set_zip($zip): void
     {
         $this->zip = $zip;
     }
@@ -149,7 +149,7 @@ class Address extends ORDataObject implements \JsonSerializable
     {
         return $this->zip;
     }
-    function set_plus_four($plus_four)
+    function set_plus_four($plus_four): void
     {
         $this->plus_four = $plus_four;
     }
@@ -157,7 +157,7 @@ class Address extends ORDataObject implements \JsonSerializable
     {
         return $this->plus_four;
     }
-    function set_country($country)
+    function set_country($country): void
     {
         $this->country = $country;
     }
@@ -166,7 +166,7 @@ class Address extends ORDataObject implements \JsonSerializable
      * Most users should use set_postalcode to handle regional differences
      * @param $postalcode The postal code for the address
      */
-    function set_postalcode($postalcode)
+    function set_postalcode($postalcode): void
     {
         $this->zip = $postalcode;
 
@@ -195,7 +195,7 @@ class Address extends ORDataObject implements \JsonSerializable
     {
         return $this->country;
     }
-    function persist($fid = "")
+    function persist($fid = ""): void
     {
         if (!empty($fid)) {
             $this->foreign_id = $fid;
