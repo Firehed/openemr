@@ -51,7 +51,7 @@ class X12RemoteTracker extends BaseService
         parent::__construct(self::TABLE_NAME);
     }
 
-    public static function sftpSendWaitingFiles()
+    public static function sftpSendWaitingFiles(): void
     {
         $remoteTracker = new X12RemoteTracker();
         $x12_remotes = $remoteTracker->fetchByStatus(self::STATUS_WAITING);

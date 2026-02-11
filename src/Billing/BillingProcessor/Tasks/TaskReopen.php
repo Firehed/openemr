@@ -22,15 +22,15 @@ class TaskReopen extends AbstractProcessingTask implements ProcessingTaskInterfa
 {
     use WritesToBillingLog;
 
-    public function setup(array $context)
+    public function setup(array $context): void
     {
         // nothing to do
     }
 
-    public function execute(BillingClaim $claim)
+    public function execute(BillingClaim $claim): void
     {
         $this->printToScreen("Re-Opening claim" . " " . $claim->getId());
-        $tmp = BillingUtilities::updateClaim(
+        BillingUtilities::updateClaim(
             true,
             $claim->getPid(),
             $claim->getEncounter(),
@@ -39,10 +39,9 @@ class TaskReopen extends AbstractProcessingTask implements ProcessingTaskInterfa
             1,
             0 // Set 'billed' flag to '0' to re-open claim
         );
-        return $tmp;
     }
 
-    public function complete(array $context)
+    public function complete(array $context): void
     {
         // nothing to do
     }
