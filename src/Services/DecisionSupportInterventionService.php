@@ -40,7 +40,7 @@ class DecisionSupportInterventionService extends BaseService
         parent::__construct(self::TABLE_NAME);
     }
 
-    public function setClientRepository(ClientRepository $clientRepository)
+    public function setClientRepository(ClientRepository $clientRepository): void
     {
         $this->clientRepository = $clientRepository;
     }
@@ -54,7 +54,7 @@ class DecisionSupportInterventionService extends BaseService
         return $this->clientRepository;
     }
 
-    public function setInNestedTransaction(bool $inNestedTransaction)
+    public function setInNestedTransaction(bool $inNestedTransaction): void
     {
         $this->inNestedTransaction = $inNestedTransaction;
     }
@@ -103,13 +103,13 @@ class DecisionSupportInterventionService extends BaseService
         return $service;
     }
 
-    public function insertAttribute($dsiServiceId, $attribute, $userId)
+    public function insertAttribute($dsiServiceId, $attribute, $userId): void
     {
         $query = "INSERT INTO " . self::TABLE_NAME . " (client_id, list_id, option_id, source_value, created_by, last_updated_by) VALUES (?, ?, ?, ?, ?, ?)";
         $params = [$dsiServiceId, $attribute['list_id'], $attribute['option_id'], $attribute['source_value'], $userId, $userId];
         QueryUtils::sqlStatementThrowException($query, $params);
     }
-    public function updateAttribute($id, $value, $userId)
+    public function updateAttribute($id, $value, $userId): void
     {
         // business requirement we allow nullable created_by for external api registrations... but we will always have a last_updated_by
         if (empty($userId)) {
@@ -120,17 +120,17 @@ class DecisionSupportInterventionService extends BaseService
         QueryUtils::sqlStatementThrowException($query, $params);
     }
 
-    public function deleteAttribute($id)
+    public function deleteAttribute($id): void
     {
         $query = "DELETE FROM " . self::TABLE_NAME . " WHERE id = ?";
         $params = [$id];
         QueryUtils::sqlStatementThrowException($query, $params);
     }
-    public function updatePredictiveDSIAttributes($dsiServiceId, $userId, $attributes)
+    public function updatePredictiveDSIAttributes($dsiServiceId, $userId, $attributes): void
     {
         $this->updateDSIAttributes($dsiServiceId, self::LIST_ID_PREDICTIVE_DSI, $userId, $attributes);
     }
-    public function updateEvidenceDSIAttributes($dsiServiceId, $userId, $attributes)
+    public function updateEvidenceDSIAttributes($dsiServiceId, $userId, $attributes): void
     {
         $this->updateDSIAttributes($dsiServiceId, self::LIST_ID_EVIDENCE_DSI, $userId, $attributes);
     }
@@ -257,7 +257,7 @@ class DecisionSupportInterventionService extends BaseService
         return self::DSI_TYPES[$dsiType];
     }
 
-    public function updateService(DecisionSupportInterventionEntity $service, ?int $userId)
+    public function updateService(DecisionSupportInterventionEntity $service, ?int $userId): void
     {
         $fields = $service->getFields();
         if ($service->getType() == PredictiveDSIServiceEntity::TYPE) {
