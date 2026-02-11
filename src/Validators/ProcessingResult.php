@@ -69,7 +69,7 @@ class ProcessingResult
         return $this->validationMessages;
     }
 
-    public function setValidationMessages($validationMessages)
+    public function setValidationMessages($validationMessages): void
     {
         $this->validationMessages = $validationMessages;
     }
@@ -79,7 +79,7 @@ class ProcessingResult
         return $this->internalErrors;
     }
 
-    public function setInternalErrors($internalErrors)
+    public function setInternalErrors($internalErrors): void
     {
         $this->internalErrors = $internalErrors;
     }
@@ -88,7 +88,7 @@ class ProcessingResult
      * Appends an internal  error to the current instance.
      * @param $internalError - The internal error to append.
      */
-    public function addInternalError($internalError)
+    public function addInternalError($internalError): void
     {
         array_push($this->internalErrors, $internalError);
     }
@@ -111,7 +111,7 @@ class ProcessingResult
         return null;
     }
 
-    public function setData($data)
+    public function setData($data): void
     {
         // we trim the data to be within the confines of the pagination limit and set our has more data flag if we have it
         $this->data = $data;
@@ -133,7 +133,7 @@ class ProcessingResult
      * Appends a new data item to the current instance.
      * @param mixed $newData The new data item.
      */
-    public function addData(mixed $newData)
+    public function addData(mixed $newData): void
     {
         $count = count($this->data);
         $limit = max(0, $this->getPagination()->getLimit());
@@ -150,7 +150,7 @@ class ProcessingResult
     /**
      * Removes all the data in the processing result
      */
-    public function clearData()
+    public function clearData(): void
     {
         $this->setData([]);
     }
@@ -159,7 +159,7 @@ class ProcessingResult
      * Given another processing result, combine all of its properties into this processing result
      * @param ProcessingResult $other  The result to combine into the current object.
      */
-    public function addProcessingResult(ProcessingResult $other)
+    public function addProcessingResult(ProcessingResult $other): void
     {
         $this->internalErrors = array_merge($this->internalErrors, $other->internalErrors);
         $this->validationMessages = array_merge($this->validationMessages, $other->validationMessages);
