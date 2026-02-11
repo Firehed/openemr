@@ -56,7 +56,7 @@ class QueryPagination implements \JsonSerializable
         return $this->searchUri;
     }
 
-    public function setSearchUri($searchUri)
+    public function setSearchUri($searchUri): void
     {
         $this->searchUri = $searchUri;
     }

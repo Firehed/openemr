@@ -31,7 +31,7 @@ class CsrfUtils
     // Function to create a private csrf key and store as a session variable
     //  Note this key always remains private and never leaves server session. It is used to create
     //  the csrf tokens.
-    public static function setupCsrfKey(?SessionInterface $session = null)
+    public static function setupCsrfKey(?SessionInterface $session = null): void
     {
         $privateKey = RandomGenUtils::produceRandomBytes(32);
         if (!empty($session)) {

@@ -212,7 +212,7 @@ class FormVitalDetails extends ORDataObject
         return $this;
     }
 
-    public function clear_interpretation()
+    public function clear_interpretation(): void
     {
         $this->interpretation_codes = null;
         $this->interpretation_option_id = null;
@@ -220,7 +220,7 @@ class FormVitalDetails extends ORDataObject
         $this->interpretation_title = null;
     }
 
-    public function set_form_id(?int $form_id)
+    public function set_form_id(?int $form_id): void
     {
         $this->form_id = $form_id;
     }
@@ -287,7 +287,7 @@ class FormVitalDetails extends ORDataObject
     /**
      * Removes all of the reason code, status, and text data
      */
-    public function clear_reason()
+    public function clear_reason(): void
     {
         $this->reason_code = null;
         $this->reason_status = null;
