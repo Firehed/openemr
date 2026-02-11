@@ -172,7 +172,7 @@ MSG;
         $log_from = 'open-emr',
         $menu_item = 'dashboard',
         $ccda_doc_id = 0
-    ) {
+    ): void {
         $category = $event;
         // Special case delete for lists table
         if ($event == 'delete') {
@@ -494,7 +494,7 @@ MSG;
      * @param $outcome
      * @param $comments
      */
-    public function sendAtnaAuditMsg($user, $group, $event, $patient_id, $outcome, $comments)
+    public function sendAtnaAuditMsg($user, $group, $event, $patient_id, $outcome, $comments): void
     {
         /* If no ATNA repository server is configured, return */
         if (empty($GLOBALS['atna_audit_host']) || empty($GLOBALS['enable_atna_audit'])) {
@@ -523,7 +523,7 @@ MSG;
      * @param $outcome
      * @param ?array $binds
      */
-    public function auditSQLEvent($statement, $outcome, $binds = null)
+    public function auditSQLEvent($statement, $outcome, $binds = null): void
     {
         $session = SessionWrapperFactory::getInstance()->getWrapper();
         $user =  $session->get('authUser') ?? "";
@@ -659,7 +659,7 @@ MSG;
      *
      * @param $enable
      */
-    public function auditSQLAuditTamper($setting, $enable)
+    public function auditSQLAuditTamper($setting, $enable): void
     {
         $session = SessionWrapperFactory::getInstance()->getWrapper();
         $user =  $session->get('authUser') ?? "";
@@ -694,7 +694,7 @@ MSG;
      * @param $comment - The recipient name and description of the disclosure.
      * @uname - The username who is recording the disclosure.
      */
-    public function recordDisclosure($dates, $event, $pid, $recipient, $description, $user)
+    public function recordDisclosure($dates, $event, $pid, $recipient, $description, $user): void
     {
         $sql = <<<'SQL'
         INSERT INTO extended_log (date, event, user, recipient, patient_id, description)
@@ -723,7 +723,7 @@ MSG;
      *               The id of the record which is
      *               to be edited.
      */
-    public function updateRecordedDisclosure($dates, $event, $recipient, $description, $disclosure_id)
+    public function updateRecordedDisclosure($dates, $event, $recipient, $description, $disclosure_id): void
     {
         $sql = <<<'SQL'
         UPDATE extended_log
@@ -749,13 +749,13 @@ MSG;
      *
      * @param $deletelid - The id of the record which is to be deleted.
      */
-    public function deleteDisclosure($deletelid)
+    public function deleteDisclosure($deletelid): void
     {
         $sql = "delete from extended_log where id='" . add_escape_custom($deletelid) . "'";
         sqlInsertClean_audit($sql);
     }
 
-    public function recordLogItem($success, $event, $user, $group, $comments, $patientId = null, $category = null, $logFrom = 'open-emr', $menuItemId = null, $ccdaDocId = null, $user_notes = '', $api = null)
+    public function recordLogItem($success, $event, $user, $group, $comments, $patientId = null, $category = null, $logFrom = 'open-emr', $menuItemId = null, $ccdaDocId = null, $user_notes = '', $api = null): void
     {
         if ($patientId == "NULL") {
             $patientId = null;
@@ -855,7 +855,7 @@ MSG;
     /**
      * Log HTTP request details
      */
-    public function logHttpRequest()
+    public function logHttpRequest(): void
     {
         $session = SessionWrapperFactory::getInstance()->getWrapper();
         // Skip if audit logging or http request logging is disabled
