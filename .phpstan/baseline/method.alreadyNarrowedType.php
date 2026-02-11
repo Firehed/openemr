@@ -187,6 +187,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../tests/Tests/Isolated/Validators/ProcessingResultTest.php',
 ];
 $ignoreErrors[] = [
+    'message' => '#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertTrue\\(\\) with true will always evaluate to true\\.$#',
+    'count' => 3,
+    'path' => __DIR__ . '/../../tests/Tests/Isolated/Validators/ProcessingResultTest.php',
+];
+$ignoreErrors[] = [
     'message' => '#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertIsString\\(\\) with string will always evaluate to true\\.$#',
     'count' => 3,
     'path' => __DIR__ . '/../../tests/Tests/Services/Billing/BillingClaimBatchControlNumberTest.php',

@@ -5802,36 +5802,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../portal/patient/libs/Model/DAO/UserMap.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\BillingClaimBatch\\:\\:append_claim\\(\\) can have void return type\\: Only empty return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/BillingClaimBatch.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\BillingClaimBatch\\:\\:append_claim_close\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/BillingClaimBatch.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\BillingLogger\\:\\:appendToLog\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/BillingLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\BillingLogger\\:\\:printToScreen\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/BillingLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\BillingLogger\\:\\:setLogCompleteCallback\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/BillingLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\BillingProcessor\\:\\:processClaims\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/BillingProcessor.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\Tasks\\\\GeneratorExternal\\:\\:appendToLog\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/GeneratorExternal.php',
@@ -5957,11 +5927,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/TaskMarkAsClear.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\Tasks\\\\TaskMarkAsClear\\:\\:complete\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/TaskMarkAsClear.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\Tasks\\\\TaskMarkAsClear\\:\\:printToScreen\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/TaskMarkAsClear.php',
@@ -5972,17 +5937,7 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/TaskMarkAsClear.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\Tasks\\\\TaskMarkAsClear\\:\\:setup\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/TaskMarkAsClear.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\Tasks\\\\TaskReopen\\:\\:appendToLog\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/TaskReopen.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\Tasks\\\\TaskReopen\\:\\:complete\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/TaskReopen.php',
 ];
@@ -5995,16 +5950,6 @@ $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\Tasks\\\\TaskReopen\\:\\:setLogger\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/TaskReopen.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\Tasks\\\\TaskReopen\\:\\:setup\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/Tasks/TaskReopen.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Billing\\\\BillingProcessor\\\\X12RemoteTracker\\:\\:sftpSendWaitingFiles\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Billing/BillingProcessor/X12RemoteTracker.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Billing\\\\BillingReport\\:\\:billCodesList\\(\\) can have void return type\\: Only empty return statements$#',
@@ -6757,26 +6702,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../src/Common/Auth/OpenIDConnect/JWT/RsaSha384Signer.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Auth\\\\OpenIDConnect\\\\Repositories\\\\AccessTokenRepository\\:\\:revokeAccessToken\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Auth/OpenIDConnect/Repositories/AccessTokenRepository.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Auth\\\\OpenIDConnect\\\\Repositories\\\\AccessTokenRepository\\:\\:setContextForNewTokens\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Auth/OpenIDConnect/Repositories/AccessTokenRepository.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Auth\\\\OpenIDConnect\\\\Repositories\\\\AuthCodeRepository\\:\\:persistNewAuthCode\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Auth/OpenIDConnect/Repositories/AuthCodeRepository.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Auth\\\\OpenIDConnect\\\\Repositories\\\\AuthCodeRepository\\:\\:revokeAuthCode\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Auth/OpenIDConnect/Repositories/AuthCodeRepository.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Common\\\\Auth\\\\OpenIDConnect\\\\Repositories\\\\ClientRepository\\:\\:remove\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Common/Auth/OpenIDConnect/Repositories/ClientRepository.php',
@@ -6785,16 +6710,6 @@ $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Common\\\\Auth\\\\OpenIDConnect\\\\Repositories\\\\JWTRepository\\:\\:saveJwtHistory\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Common/Auth/OpenIDConnect/Repositories/JWTRepository.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Auth\\\\OpenIDConnect\\\\Repositories\\\\RefreshTokenRepository\\:\\:persistNewRefreshToken\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Auth/OpenIDConnect/Repositories/RefreshTokenRepository.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Auth\\\\OpenIDConnect\\\\Repositories\\\\RefreshTokenRepository\\:\\:revokeRefreshToken\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Auth/OpenIDConnect/Repositories/RefreshTokenRepository.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Common\\\\Command\\\\CreateAPIDocumentationCommand\\:\\:configure\\(\\) can have void return type\\: No return statements$#',
@@ -6857,34 +6772,9 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../src/Common/Command/SymfonyCommandRunner.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Csrf\\\\CsrfUtils\\:\\:setupCsrfKey\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Csrf/CsrfUtils.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Database\\\\QueryPagination\\:\\:setSearchUri\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Database/QueryPagination.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Common\\\\Forms\\\\FormReportRenderer\\:\\:renderReport\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Common/Forms/FormReportRenderer.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Forms\\\\FormVitalDetails\\:\\:clear_interpretation\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Forms/FormVitalDetails.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Forms\\\\FormVitalDetails\\:\\:clear_reason\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Forms/FormVitalDetails.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Forms\\\\FormVitalDetails\\:\\:set_form_id\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Forms/FormVitalDetails.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Common\\\\Forms\\\\FormVitals\\:\\:persist\\(\\) can have void return type\\: No return statements$#',
@@ -7055,106 +6945,6 @@ $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Common\\\\Http\\\\HttpResponseHelper\\:\\:send\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Common/Http/HttpResponseHelper.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Logging\\\\EventAuditLogger\\:\\:auditSQLAuditTamper\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Logging/EventAuditLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Logging\\\\EventAuditLogger\\:\\:auditSQLEvent\\(\\) can have void return type\\: Only empty return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Logging/EventAuditLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Logging\\\\EventAuditLogger\\:\\:deleteDisclosure\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Logging/EventAuditLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Logging\\\\EventAuditLogger\\:\\:logHttpRequest\\(\\) can have void return type\\: Only empty return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Logging/EventAuditLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Logging\\\\EventAuditLogger\\:\\:newEvent\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Logging/EventAuditLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Logging\\\\EventAuditLogger\\:\\:recordDisclosure\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Logging/EventAuditLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Logging\\\\EventAuditLogger\\:\\:recordLogItem\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Logging/EventAuditLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Logging\\\\EventAuditLogger\\:\\:sendAtnaAuditMsg\\(\\) can have void return type\\: Only empty return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Logging/EventAuditLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\Logging\\\\EventAuditLogger\\:\\:updateRecordedDisclosure\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/Logging/EventAuditLogger.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\Address\\:\\:persist\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/ORDataObject/Address.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\Address\\:\\:set_city\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/ORDataObject/Address.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\Address\\:\\:set_country\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/ORDataObject/Address.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\Address\\:\\:set_foreign_id\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/ORDataObject/Address.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\Address\\:\\:set_id\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/ORDataObject/Address.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\Address\\:\\:set_line1\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/ORDataObject/Address.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\Address\\:\\:set_line2\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/ORDataObject/Address.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\Address\\:\\:set_plus_four\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/ORDataObject/Address.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\Address\\:\\:set_postalcode\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/ORDataObject/Address.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\Address\\:\\:set_state\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/ORDataObject/Address.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\Address\\:\\:set_zip\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Common/ORDataObject/Address.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Common\\\\ORDataObject\\\\ContactAddress\\:\\:deactivate\\(\\) can have void return type\\: No return statements$#',
@@ -7417,21 +7207,6 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../src/Events/PatientReport/PatientReportFilterEvent.php',
 ];
 $ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Events\\\\RestApiExtend\\\\RestApiCreateEvent\\:\\:addToFHIRRouteMap\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Events/RestApiExtend/RestApiCreateEvent.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Events\\\\RestApiExtend\\\\RestApiCreateEvent\\:\\:addToPortalRouteMap\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Events/RestApiExtend/RestApiCreateEvent.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Events\\\\RestApiExtend\\\\RestApiCreateEvent\\:\\:addToRouteMap\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Events/RestApiExtend/RestApiCreateEvent.php',
-];
-$ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Events\\\\RestApiExtend\\\\RestApiSecurityCheckEvent\\:\\:setPermission\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Events/RestApiExtend/RestApiSecurityCheckEvent.php',
@@ -7455,26 +7230,6 @@ $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Events\\\\RestApiExtend\\\\RestApiSecurityCheckEvent\\:\\:skipSecurityCheck\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Events/RestApiExtend/RestApiSecurityCheckEvent.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\FHIR\\\\Export\\\\ExportJob\\:\\:setApiBaseUrl\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/FHIR/Export/ExportJob.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\FHIR\\\\Export\\\\ExportStreamWriter\\:\\:append\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/FHIR/Export/ExportStreamWriter.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\FHIR\\\\Export\\\\ExportStreamWriter\\:\\:flush\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/FHIR/Export/ExportStreamWriter.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\FHIR\\\\Export\\\\ExportStreamWriter\\:\\:incrementRecordCount\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/FHIR/Export/ExportStreamWriter.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\FHIR\\\\R4\\\\PHPFHIRHelper\\:\\:doImport\\(\\) can have void return type\\: No return statements$#',
@@ -7525,16 +7280,6 @@ $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\FHIR\\\\SMART\\\\ExternalClinicalDecisionSupport\\\\RouteController\\:\\:setTwigEnvironment\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/FHIR/SMART/ExternalClinicalDecisionSupport/RouteController.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\FHIR\\\\SMART\\\\SMARTLaunchToken\\:\\:deserialize\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/FHIR/SMART/SMARTLaunchToken.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\FHIR\\\\SMART\\\\SMARTLaunchToken\\:\\:setAppointmentUuid\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/FHIR/SMART/SMARTLaunchToken.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\FHIR\\\\SMART\\\\SmartLaunchController\\:\\:redirectAndLaunchSmartApp\\(\\) can have void return type\\: No return statements$#',
@@ -7750,21 +7495,6 @@ $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\RestControllers\\\\SMART\\\\PatientContextSearchController\\:\\:checkUserAccessPatientData\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/RestControllers/SMART/PatientContextSearchController.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\RestControllers\\\\Subscriber\\\\CORSListener\\:\\:onKernelRequest\\(\\) can have void return type\\: Only empty return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/RestControllers/Subscriber/CORSListener.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\RestControllers\\\\Subscriber\\\\CORSListener\\:\\:onKernelResponse\\(\\) can have void return type\\: Only empty return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/RestControllers/Subscriber/CORSListener.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\RestControllers\\\\Subscriber\\\\SiteSetupListener\\:\\:onKernelRequest\\(\\) can have void return type\\: Only empty return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/RestControllers/Subscriber/SiteSetupListener.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\RestControllers\\\\Subscriber\\\\TelemetryListener\\:\\:onRequestTerminated\\(\\) can have void return type\\: No return statements$#',
@@ -8045,46 +7775,6 @@ $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Services\\\\ClinicalNotesService\\:\\:setActivityForClinicalRecord\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Services/ClinicalNotesService.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Services\\\\DecisionSupportInterventionService\\:\\:deleteAttribute\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Services/DecisionSupportInterventionService.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Services\\\\DecisionSupportInterventionService\\:\\:insertAttribute\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Services/DecisionSupportInterventionService.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Services\\\\DecisionSupportInterventionService\\:\\:setClientRepository\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Services/DecisionSupportInterventionService.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Services\\\\DecisionSupportInterventionService\\:\\:setInNestedTransaction\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Services/DecisionSupportInterventionService.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Services\\\\DecisionSupportInterventionService\\:\\:updateAttribute\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Services/DecisionSupportInterventionService.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Services\\\\DecisionSupportInterventionService\\:\\:updateEvidenceDSIAttributes\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Services/DecisionSupportInterventionService.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Services\\\\DecisionSupportInterventionService\\:\\:updatePredictiveDSIAttributes\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Services/DecisionSupportInterventionService.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Services\\\\DecisionSupportInterventionService\\:\\:updateService\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Services/DecisionSupportInterventionService.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Services\\\\EmployerService\\:\\:setUuidRegistry\\(\\) can have void return type\\: No return statements$#',
@@ -9995,41 +9685,6 @@ $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Validators\\\\PractitionerValidator\\:\\:configureValidator\\(\\) can have void return type\\: No return statements$#',
     'count' => 1,
     'path' => __DIR__ . '/../../src/Validators/PractitionerValidator.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Validators\\\\ProcessingResult\\:\\:addData\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Validators/ProcessingResult.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Validators\\\\ProcessingResult\\:\\:addInternalError\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Validators/ProcessingResult.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Validators\\\\ProcessingResult\\:\\:addProcessingResult\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Validators/ProcessingResult.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Validators\\\\ProcessingResult\\:\\:clearData\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Validators/ProcessingResult.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Validators\\\\ProcessingResult\\:\\:setData\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Validators/ProcessingResult.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Validators\\\\ProcessingResult\\:\\:setInternalErrors\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Validators/ProcessingResult.php',
-];
-$ignoreErrors[] = [
-    'message' => '#^Method OpenEMR\\\\Validators\\\\ProcessingResult\\:\\:setValidationMessages\\(\\) can have void return type\\: No return statements$#',
-    'count' => 1,
-    'path' => __DIR__ . '/../../src/Validators/ProcessingResult.php',
 ];
 $ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Tests\\\\Api\\\\ApiTestClient\\:\\:cleanupClient\\(\\) can have void return type\\: No return statements$#',
