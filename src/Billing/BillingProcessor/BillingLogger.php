@@ -79,7 +79,7 @@ class BillingLogger
         }
     }
 
-    public function setLogCompleteCallback(callable $onLogCompleteCallback)
+    public function setLogCompleteCallback(callable $onLogCompleteCallback): void
     {
         $this->onLogCompleteCallback = $onLogCompleteCallback;
     }
@@ -107,7 +107,7 @@ class BillingLogger
         return false;
     }
 
-    public function printToScreen($message)
+    public function printToScreen($message): void
     {
         $this->bill_info[] = $message;
     }
@@ -117,7 +117,7 @@ class BillingLogger
         return $this->bill_info;
     }
 
-    public function appendToLog($message)
+    public function appendToLog($message): void
     {
         // have the most recent claims on top in the log
         $this->hlog = $message . $this->hlog;

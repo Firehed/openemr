@@ -197,7 +197,7 @@ class BillingClaimBatch
         return $unique_x12_partners;
     }
 
-    public function append_claim(&$segs, $hcfa_txt = false)
+    public function append_claim(&$segs, $hcfa_txt = false): void
     {
         if ($hcfa_txt) {
             $this->bat_content .= $segs;
@@ -267,7 +267,7 @@ class BillingClaimBatch
         }
     }
 
-    public function append_claim_close()
+    public function append_claim_close(): void
     {
         if ($this->bat_gscount) {
             $this->bat_content .= "GE" . "*" . $this->bat_stcount . "*" . $this->bat_gs06 . "~";

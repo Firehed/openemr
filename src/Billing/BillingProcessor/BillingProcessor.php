@@ -120,7 +120,7 @@ class BillingProcessor
         return $claims;
     }
 
-    protected function processClaims(ProcessingTaskInterface $processingTask, array $claims)
+    protected function processClaims(ProcessingTaskInterface $processingTask, array $claims): void
     {
         // Call setup on our processing task. If the task is a file-generator,
         // this calls setup on the generator (to set up batch file, etc)
