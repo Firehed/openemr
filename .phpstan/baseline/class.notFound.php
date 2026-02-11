@@ -2502,6 +2502,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../tests/PHPStan/Rules/ForbiddenMethodsRule.php',
 ];
 $ignoreErrors[] = [
+    'message' => '#^Class PhpParser\\\\Node\\\\Stmt\\\\Throw_ not found\\.$#',
+    'count' => 1,
+    'path' => __DIR__ . '/../../tests/PHPStan/Rules/MissingVoidNeverReturnTypeRule.php',
+];
+$ignoreErrors[] = [
     'message' => '#^Method OpenEMR\\\\Tests\\\\Api\\\\ApiTestClient\\:\\:setAuthToken\\(\\) has invalid return type OpenEMR\\\\Tests\\\\Api\\\\the\\.$#',
     'count' => 1,
     'path' => __DIR__ . '/../../tests/Tests/Api/ApiTestClient.php',

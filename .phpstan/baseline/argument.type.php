@@ -70047,6 +70047,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../tests/PHPStan/Rules/ForbiddenGlobalNamespaceRule.php',
 ];
 $ignoreErrors[] = [
+    'message' => '#^Parameter \\#1 \\$nodes of method OpenEMR\\\\PHPStan\\\\Rules\\\\MissingVoidNeverReturnTypeRule\\:\\:findReturnsRecursive\\(\\) expects array\\<PhpParser\\\\Node\\>\\|PhpParser\\\\Node, array\\<mixed, mixed\\> given\\.$#',
+    'count' => 1,
+    'path' => __DIR__ . '/../../tests/PHPStan/Rules/MissingVoidNeverReturnTypeRule.php',
+];
+$ignoreErrors[] = [
     'message' => '#^Parameter \\#2 \\$args of method OpenEMR\\\\PHPStan\\\\Rules\\\\SoftRequiredArgumentsRule\\:\\:check\\(\\) expects array\\<PhpParser\\\\Node\\\\Arg\\>, array\\<PhpParser\\\\Node\\\\Arg\\|PhpParser\\\\Node\\\\VariadicPlaceholder\\> given\\.$#',
     'count' => 2,
     'path' => __DIR__ . '/../../tests/PHPStan/Rules/SoftRequiredArgumentsRule.php',

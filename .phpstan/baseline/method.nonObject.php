@@ -11027,6 +11027,11 @@ $ignoreErrors[] = [
     'path' => __DIR__ . '/../../tests/PHPStan/Rules/ForbiddenGlobalNamespaceRule.php',
 ];
 $ignoreErrors[] = [
+    'message' => '#^Cannot call method toString\\(\\) on mixed\\.$#',
+    'count' => 1,
+    'path' => __DIR__ . '/../../tests/PHPStan/Rules/MissingVoidNeverReturnTypeRule.php',
+];
+$ignoreErrors[] = [
     'message' => '#^Cannot call method getBody\\(\\) on mixed\\.$#',
     'count' => 1,
     'path' => __DIR__ . '/../../tests/Tests/Api/AllergyIntoleranceFhirApiTest.php',

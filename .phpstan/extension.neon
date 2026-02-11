@@ -49,3 +49,6 @@ services:
 - class: OpenEMR\PHPStan\Rules\SoftRequiredArgumentsRule
   tags:
   - phpstan.rules.rule
+- class: OpenEMR\PHPStan\Rules\MissingVoidNeverReturnTypeRule
+  tags:
+  - phpstan.rules.rule

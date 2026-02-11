@@ -96,5 +96,10 @@ $ignoreErrors[] = [
     'count' => 1,
     'path' => __DIR__ . '/../../src/Services/Search/SearchFieldStatementResolver.php',
 ];
+$ignoreErrors[] = [
+    'message' => '#^Instanceof between PhpParser\\\\Node and PhpParser\\\\Node will always evaluate to true\\.$#',
+    'count' => 1,
+    'path' => __DIR__ . '/../../tests/PHPStan/Rules/MissingVoidNeverReturnTypeRule.php',
+];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];

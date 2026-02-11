@@ -156,5 +156,10 @@ $ignoreErrors[] = [
     'count' => 1,
     'path' => __DIR__ . '/../../src/Services/SocialHistoryService.php',
 ];
+$ignoreErrors[] = [
+    'message' => '#^Negated boolean expression is always true\\.$#',
+    'count' => 1,
+    'path' => __DIR__ . '/../../tests/PHPStan/Rules/MissingVoidNeverReturnTypeRule.php',
+];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];
